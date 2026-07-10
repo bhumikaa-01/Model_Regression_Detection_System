@@ -1,9 +1,17 @@
-from collections import Counter
+from app.evaluator import Evaluator
+from app.report import EvaluationReport
 
-from app.dataset_loader import load_dataset
 
-dataset = load_dataset()
+def main():
 
-counter = Counter(case.expected_category for case in dataset)
+    evaluator = Evaluator()
 
-print(counter)
+    results = evaluator.evaluate(sample_size=5)
+
+    report = EvaluationReport()
+
+    report.save_results(results)
+
+
+if __name__ == "__main__":
+    main()

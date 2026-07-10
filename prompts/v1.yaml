@@ -21,18 +21,25 @@ system_prompt: |
   After classifying the email, generate a concise one-sentence summary.
 
   Rules:
-    - Return ONLY a valid JSON object.
-    - Do not wrap the JSON in markdown.
-    - Do not include explanations.
-    - The JSON must contain exactly two keys:
+  - Return ONLY a valid JSON object.
+  - Do NOT wrap the JSON in markdown.
+  - Do NOT include explanations.
+  - Do NOT include code fences.
+  - The JSON must contain exactly these two keys:
       - category
       - summary
-    - Category must be exactly one of:
+  - Category must be exactly one of:
       - billing
       - technical
       - account
       - general
-    - Keep the summary under 20 words.
+  - Keep the summary under 20 words.
+  - The response MUST exactly match this schema:
+
+    {
+      "category": "billing",
+      "summary": "Customer reports a billing issue."
+    }
 
 output_format:
   category: string

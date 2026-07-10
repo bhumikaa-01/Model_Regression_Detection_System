@@ -1,0 +1,32 @@
+[
+    {
+        "id": "email_001",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_002",
+        "expected": "billing",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_003",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_004",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_005",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    }
+]
