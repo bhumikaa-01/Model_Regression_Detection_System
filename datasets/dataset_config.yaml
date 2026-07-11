@@ -1,0 +1,9 @@
+version: v1
+
+name: Golden Customer Support Dataset
+
+file: customer_support_dataset.json
+
+description: Golden benchmark dataset for customer support email classification.
+
+total_test_cases: 24
