@@ -1,44 +1,65 @@
 import json
-import os
+from pathlib import Path
 
 
-class EvaluationReport:
+class ReportLoader:
     """
-    Saves evaluation results to JSON files.
+    Loads regression reports.
     """
 
     def __init__(self):
+        self.results_dir = Path("results")
 
-        self.results_folder = "results"
+    def get_latest_report(self):
+        """
+        Returns the latest regression report.
+        """
 
-        os.makedirs(self.results_folder, exist_ok=True)
-
-    def save_results(self, results):
-
-        existing_files = [
-            file
-            for file in os.listdir(self.results_folder)
-            if file.startswith("evaluation_") and file.endswith(".json")
-        ]
-
-        run_number = len(existing_files) + 1
-
-        filename = f"evaluation_{run_number:03}.json"
-
-        filepath = os.path.join(
-            self.results_folder,
-            filename
+        reports = sorted(
+            self.results_dir.glob("regression_report_*.json")
         )
 
-        with open(filepath, "w", encoding="utf-8") as file:
-
-            json.dump(
-                results,
-                file,
-                indent=4,
-                ensure_ascii=False,
+        if not reports:
+            raise FileNotFoundError(
+                "No regression reports found."
             )
 
-        print(f"\nEvaluation results saved to:\n{filepath}")
+        latest_report = reports[-1]
 
-        return filepath
+        with open(latest_report, "r", encoding="utf-8") as file:
+            return json.load(file)
+
+    def get_all_reports(self):
+        """
+        Returns all regression reports sorted newest first.
+        """
+
+        reports = sorted(
+            self.results_dir.glob("regression_report_*.json"),
+            reverse=True,
+        )
+
+        report_list = []
+
+        for report in reports:
+
+            with open(report, "r", encoding="utf-8") as file:
+                report_list.append(json.load(file))
+
+        return report_list
+
+    def get_report_by_id(self, report_id: int):
+        """
+        Returns a specific regression report by ID.
+        """
+
+        report_file = (
+            self.results_dir /
+            f"regression_report_{report_id:03}.json"
+        )
+
+        if not report_file.exists():
+            return None
+
+        with open(report_file, "r", encoding="utf-8") as file:
+            return json.load(file)
