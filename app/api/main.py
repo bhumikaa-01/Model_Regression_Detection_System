@@ -4,6 +4,7 @@ from app.api.routes.health import router as health_router
 from app.api.routes.reports import router as reports_router
 
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 app = FastAPI(
     title="LLM Regression Detection API",
@@ -31,6 +32,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", include_in_schema=False)
+def root():
+    """
+    Redirect users from the root URL to the Swagger documentation.
+    """
+    return RedirectResponse(url="/docs")
 
 app.include_router(
     health_router,
