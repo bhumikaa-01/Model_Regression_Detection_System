@@ -9,7 +9,6 @@ router = APIRouter(tags=["Reports"])
 
 report_loader = ReportLoader()
 
-
 @router.get(
     "/reports",
     response_model=List[ReportResponse],
