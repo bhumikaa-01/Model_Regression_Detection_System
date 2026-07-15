@@ -18,7 +18,7 @@ export default function Reports() {
 
                 const data = await getAllReports();
 
-                console.log(data);
+                
 
                 setReports(data);
 

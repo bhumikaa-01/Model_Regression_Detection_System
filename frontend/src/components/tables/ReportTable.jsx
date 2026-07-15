@@ -61,7 +61,6 @@ export default function ReportsTable({ reports }) {
   variant="contained"
   size="small"
   onClick={() => {
-    console.log("Clicked", report.report_id);
     navigate(`/reports/${report.report_id}`);
   }}
 >

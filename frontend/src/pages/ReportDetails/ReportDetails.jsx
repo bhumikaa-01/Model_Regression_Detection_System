@@ -28,7 +28,6 @@ export default function ReportDetails() {
     async function loadReport() {
       try {
         const data = await getReportById(reportId);
-        console.log(data);
         setReport(data);
       } catch (err) {
         console.error(err);

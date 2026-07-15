@@ -4,6 +4,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Reports from "./pages/Report/Report";
 import ReportDetails from "./pages/ReportDetails/ReportDetails";
 
+import Analytics from "./pages/Analytics/Analytics";
+
 function App() {
   return (
     <Routes>
@@ -21,6 +23,11 @@ function App() {
       <Route
         path="/reports/:reportId"
         element={<ReportDetails />}
+      />
+
+      <Route
+        path="/analytics"
+      element={<Analytics />}
       />
 
     </Routes>
