@@ -3,13 +3,25 @@ import { Box } from "@mui/material";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
-export default function MainLayout({ children }) {
+export default function MainLayout({
+  children,
+  mode,
+  toggleTheme,
+}) {
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+      }}
+    >
       <Sidebar />
 
       <Box sx={{ flexGrow: 1 }}>
-        <Navbar />
+        <Navbar
+          mode={mode}
+          toggleTheme={toggleTheme}
+        />
 
         <Box
           component="main"

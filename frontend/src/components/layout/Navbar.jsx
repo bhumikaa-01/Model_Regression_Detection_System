@@ -3,44 +3,68 @@ import {
   Toolbar,
   Typography,
   Box,
-  Avatar,
   IconButton,
+  Avatar,
+  Tooltip,
 } from "@mui/material";
 
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
-export default function Navbar() {
+export default function Navbar({
+  mode,
+  toggleTheme,
+}) {
   return (
     <AppBar
-      position="sticky"
-      elevation={0}
+      position="static"
       color="inherit"
-      sx={{
-        borderBottom: "1px solid #ECECEC",
-      }}
+      elevation={1}
     >
-      <Toolbar>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Typography
-          variant="h6"
+          variant="h5"
           fontWeight={700}
         >
           AI Evaluation Dashboard
         </Typography>
 
-        <Box sx={{ flexGrow: 1 }} />
-
-        <IconButton>
-          <NotificationsNoneIcon />
-        </IconButton>
-
-        <Avatar
-          sx={{
-            ml: 2,
-            bgcolor: "#111827",
-          }}
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={1}
         >
-          BR
-        </Avatar>
+          <Tooltip title="Toggle Theme">
+            <IconButton
+              onClick={toggleTheme}
+              color="inherit"
+            >
+              {mode === "light" ? (
+                <DarkModeIcon />
+              ) : (
+                <LightModeIcon />
+              )}
+            </IconButton>
+          </Tooltip>
+
+          <IconButton color="inherit">
+            <NotificationsNoneIcon />
+          </IconButton>
+
+          <Avatar
+            sx={{
+              bgcolor: "primary.main",
+            }}
+          >
+            BR
+          </Avatar>
+        </Box>
       </Toolbar>
     </AppBar>
   );

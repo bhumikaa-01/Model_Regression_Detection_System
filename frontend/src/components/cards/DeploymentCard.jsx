@@ -3,33 +3,53 @@ import {
   CardContent,
   Typography,
   Chip,
+  Stack,
+  Box,
 } from "@mui/material";
+
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import ErrorIcon from "@mui/icons-material/Error";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 export default function DeploymentCard({
   health,
   recommendation,
 }) {
-  let statusIcon = "🟢";
-  let chipColor = "success";
+  let icon = <CheckCircleIcon sx={{ fontSize: 64 }} />;
+  let color = "success";
 
-  if (health === "Regression Detected") {
-    statusIcon = "🔴";
-    chipColor = "error";
-  } else if (health === "Model Unchanged") {
-    statusIcon = "🟡";
-    chipColor = "warning";
+  if (health.includes("Regression")) {
+    icon = <ErrorIcon sx={{ fontSize: 64 }} />;
+    color = "error";
+  } else if (
+    health.includes("No Significant Change")
+  ) {
+    icon = (
+      <WarningAmberIcon sx={{ fontSize: 64 }} />
+    );
+    color = "warning";
   }
 
   return (
     <Card
       elevation={0}
       sx={{
-        borderRadius: 4,
-        border: "1px solid #ECECEC",
         height: "100%",
+        borderRadius: 4,
+        border: "1px solid",
+        borderColor: "divider",
+        transition: "0.25s",
+
+        "&:hover": {
+          transform: "translateY(-6px)",
+          boxShadow:
+            "0px 12px 28px rgba(0,0,0,0.08)",
+        },
       }}
     >
       <CardContent>
+
         <Typography
           variant="h6"
           fontWeight={700}
@@ -37,41 +57,40 @@ export default function DeploymentCard({
           Deployment Status
         </Typography>
 
-        <Typography
-          mt={3}
-          variant="h2"
+        <Stack
+          alignItems="center"
+          spacing={2}
+          mt={4}
         >
-          {statusIcon}
-        </Typography>
+          <Box color={`${color}.main`}>
+            {icon}
+          </Box>
 
-        <Typography
-          mt={2}
-          variant="h5"
-          fontWeight={700}
-        >
-          {recommendation}
-        </Typography>
+          <Chip
+            icon={<RocketLaunchIcon />}
+            label={recommendation}
+            color={color}
+            size="medium"
+          />
+        </Stack>
 
-        <Typography
-          mt={2}
-          color="text.secondary"
-          variant="body2"
-        >
-          Current Health
-        </Typography>
+        <Box mt={5}>
+          <Typography
+            color="text.secondary"
+            variant="body2"
+          >
+            Current Health
+          </Typography>
 
-        <Typography
-          variant="body1"
-          fontWeight={600}
-        >
-          {health}
-        </Typography>
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            mt={1}
+          >
+            {health.replace(/🟢|🔴|🟡/g, "").trim()}
+          </Typography>
+        </Box>
 
-        <Chip
-          sx={{ mt: 4 }}
-          color={chipColor}
-          label={recommendation}
-        />
       </CardContent>
     </Card>
   );

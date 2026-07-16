@@ -12,14 +12,16 @@ import MainLayout from "../../components/layout/MainLayout";
 import { getReportById } from "../../services/api";
 
 import ImprovementTable from "../../components/tables/ImprovementTable";
-
 import RegressionTable from "../../components/tables/RegressionTable";
-
 import UnchangedPassesTable from "../../components/tables/UnchangedPassesTable";
-
 import StillFailingTable from "../../components/tables/StillFailingTable";
 
-export default function ReportDetails() {
+import PageSkeleton from "../../components/common/PageSkeleton";
+
+export default function ReportDetails({
+  mode,
+  toggleTheme,
+}) {
   const { reportId } = useParams();
 
   const [report, setReport] = useState(null);
@@ -39,93 +41,105 @@ export default function ReportDetails() {
 
   if (!report) {
     return (
-      <MainLayout>
-        <Typography variant="h5">
-          Loading report...
-        </Typography>
+      <MainLayout
+        mode={mode}
+        toggleTheme={toggleTheme}
+      >
+        <PageSkeleton />
       </MainLayout>
     );
   }
 
   return (
-  <MainLayout>
-
-    <Typography
-      variant="h4"
-      fontWeight={700}
-      mb={3}
+    <MainLayout
+      mode={mode}
+      toggleTheme={toggleTheme}
     >
-      Report #{report.report_id}
-    </Typography>
+      <Typography
+        variant="h4"
+        fontWeight={700}
+        mb={3}
+      >
+        Report #{report.report_id}
+      </Typography>
 
-    <Grid container spacing={3}>
+      <Grid container spacing={3}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Card>
+            <CardContent>
+              <Typography fontWeight={700}>
+                Model
+              </Typography>
 
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Card>
-          <CardContent>
+              <Typography mb={2}>
+                {report.model}
+              </Typography>
 
-            <Typography><b>Model</b></Typography>
-            <Typography mb={2}>
-              {report.model}
-            </Typography>
+              <Typography fontWeight={700}>
+                Prompt
+              </Typography>
 
-            <Typography><b>Prompt</b></Typography>
-            <Typography mb={2}>
-              {report.prompt_name}
-            </Typography>
+              <Typography mb={2}>
+                {report.prompt_name}
+              </Typography>
 
-            <Typography><b>Prompt Version</b></Typography>
-            <Typography>
-              {report.prompt_version}
-            </Typography>
+              <Typography fontWeight={700}>
+                Prompt Version
+              </Typography>
 
-          </CardContent>
-        </Card>
+              <Typography>
+                {report.prompt_version}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Card>
+            <CardContent>
+              <Typography fontWeight={700}>
+                Dataset
+              </Typography>
+
+              <Typography mb={2}>
+                {report.dataset_name}
+              </Typography>
+
+              <Typography fontWeight={700}>
+                Accuracy
+              </Typography>
+
+              <Typography mb={2}>
+                {report.current_accuracy}%
+              </Typography>
+
+              <Typography fontWeight={700}>
+                Health Status
+              </Typography>
+
+              <Typography>
+                {report.health_status}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
 
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Card>
-          <CardContent>
+      <ImprovementTable
+        improvements={report.improvements}
+      />
 
-            <Typography><b>Dataset</b></Typography>
-            <Typography mb={2}>
-              {report.dataset_name}
-            </Typography>
-
-            <Typography><b>Accuracy</b></Typography>
-            <Typography mb={2}>
-              {report.current_accuracy}%
-            </Typography>
-
-            <Typography><b>Health</b></Typography>
-            <Typography>
-              {report.health_status}
-            </Typography>
-
-          </CardContent>
-        </Card>
-      </Grid>
-
-    </Grid>
-
-    {/* Improvements Section */}
-
-    <ImprovementTable
-      improvements={report.improvements}
-    />
-
-    <RegressionTable
+      <RegressionTable
         regressions={report.regressions}
-    />
+      />
 
-    <UnchangedPassesTable
+      <UnchangedPassesTable
         unchangedPasses={report.unchanged_passes}
-    />
+      />
 
-    <StillFailingTable
+      <StillFailingTable
         stillFailing={report.still_failing}
-    />
-
-  </MainLayout>
-);
+      />
+    </MainLayout>
+  );
 }
