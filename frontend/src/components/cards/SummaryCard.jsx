@@ -21,28 +21,29 @@ export default function SummaryCard({
         border: "1px solid",
         borderColor: "divider",
         borderLeft: `6px solid ${color}`,
-        transition: "all 0.25s ease",
+        transition: "all .3s",
 
         "&:hover": {
-          transform: "translateY(-6px)",
-          boxShadow: "0px 12px 30px rgba(0,0,0,0.08)",
-          backgroundColor: "action.hover",
+          transform: "translateY(-8px)",
+          boxShadow: "0 18px 40px rgba(0,0,0,.08)",
         },
       }}
     >
-      <CardContent sx={{ p: 3 }}>
+      <CardContent>
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="flex-start"
         >
-          <Box>
+          <Box flex={1}>
             <Typography
               variant="body2"
               color="text.secondary"
-              fontWeight={600}
-              textTransform="uppercase"
-              letterSpacing={0.8}
+              fontWeight={700}
+              sx={{
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
             >
               {title}
             </Typography>
@@ -50,10 +51,9 @@ export default function SummaryCard({
             <Typography
               variant="h3"
               fontWeight={800}
-              color={color}
               sx={{
                 mt: 2,
-                lineHeight: 1,
+                color,
               }}
             >
               {value}
@@ -62,7 +62,9 @@ export default function SummaryCard({
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ mt: 1.5 }}
+              sx={{
+                mt: 1,
+              }}
             >
               {subtitle}
             </Typography>
@@ -71,11 +73,18 @@ export default function SummaryCard({
           {icon && (
             <Box
               sx={{
-                color: color,
-                opacity: 0.9,
+                width: 56,
+                height: 56,
+                borderRadius: "50%",
+                backgroundColor: `${color}20`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                color,
+
+                "& .MuiSvgIcon-root": {
+                  fontSize: 30,
+                },
               }}
             >
               {icon}

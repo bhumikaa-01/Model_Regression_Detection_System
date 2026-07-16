@@ -15,10 +15,14 @@
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
     "axios": "^1.18.1",
+    "clsx": "^2.1.1",
+    "motion": "^12.42.2",
     "react": "^19.2.7",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
-    "recharts": "^3.9.2"
+    "recharts": "^3.9.2",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

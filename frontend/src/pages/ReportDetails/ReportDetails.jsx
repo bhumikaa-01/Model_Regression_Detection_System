@@ -6,7 +6,12 @@ import {
   Card,
   CardContent,
   Grid,
+  Stack,
+  Button,
 } from "@mui/material";
+
+import DownloadIcon from "@mui/icons-material/Download";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 
 import MainLayout from "../../components/layout/MainLayout";
 import { getReportById } from "../../services/api";
@@ -39,6 +44,34 @@ export default function ReportDetails({
     loadReport();
   }, [reportId]);
 
+  const exportJSON = () => {
+    const blob = new Blob(
+      [JSON.stringify(report, null, 2)],
+      {
+        type: "application/json",
+      }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = `report_${report.report_id}.json`;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+  };
+
+  const exportPDF = () => {
+    alert("PDF Export coming soon!");
+  };
+
   if (!report) {
     return (
       <MainLayout
@@ -55,17 +88,58 @@ export default function ReportDetails({
       mode={mode}
       toggleTheme={toggleTheme}
     >
-      <Typography
-        variant="h4"
-        fontWeight={700}
+      <Stack
+        direction={{
+          xs: "column",
+          md: "row",
+        }}
+        justifyContent="space-between"
+        alignItems={{
+          xs: "flex-start",
+          md: "center",
+        }}
+        spacing={2}
         mb={3}
       >
-        Report #{report.report_id}
-      </Typography>
+        <Typography
+          variant="h4"
+          fontWeight={700}
+        >
+          Report #{report.report_id}
+        </Typography>
+
+        <Stack
+          direction="row"
+          spacing={2}
+        >
+          <Button
+            variant="outlined"
+            startIcon={<DownloadIcon />}
+            onClick={exportJSON}
+          >
+            Export JSON
+          </Button>
+
+          <Button
+            variant="contained"
+            startIcon={<PictureAsPdfIcon />}
+            onClick={exportPDF}
+          >
+            Export PDF
+          </Button>
+        </Stack>
+      </Stack>
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Card>
+          <Card
+            elevation={0}
+            sx={{
+              borderRadius: 4,
+              border: "1px solid",
+              borderColor: "divider",
+            }}
+          >
             <CardContent>
               <Typography fontWeight={700}>
                 Model
@@ -95,7 +169,14 @@ export default function ReportDetails({
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Card>
+          <Card
+            elevation={0}
+            sx={{
+              borderRadius: 4,
+              border: "1px solid",
+              borderColor: "divider",
+            }}
+          >
             <CardContent>
               <Typography fontWeight={700}>
                 Dataset
@@ -117,8 +198,16 @@ export default function ReportDetails({
                 Health Status
               </Typography>
 
-              <Typography>
+              <Typography mb={2}>
                 {report.health_status}
+              </Typography>
+
+              <Typography fontWeight={700}>
+                Deployment Recommendation
+              </Typography>
+
+              <Typography>
+                {report.deployment_recommendation}
               </Typography>
             </CardContent>
           </Card>
