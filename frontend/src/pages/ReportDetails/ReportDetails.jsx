@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import jsPDF from "jspdf";
+import toast from "react-hot-toast";
 
 import {
   Typography,
@@ -23,12 +25,8 @@ import StillFailingTable from "../../components/tables/StillFailingTable";
 
 import PageSkeleton from "../../components/common/PageSkeleton";
 
-export default function ReportDetails({
-  mode,
-  toggleTheme,
-}) {
+export default function ReportDetails({ mode, toggleTheme }) {
   const { reportId } = useParams();
-
   const [report, setReport] = useState(null);
 
   useEffect(() => {
@@ -36,8 +34,10 @@ export default function ReportDetails({
       try {
         const data = await getReportById(reportId);
         setReport(data);
+        toast.success("Report loaded successfully");
       } catch (err) {
         console.error(err);
+        toast.error("Failed to load report");
       }
     }
 
@@ -45,31 +45,109 @@ export default function ReportDetails({
   }, [reportId]);
 
   const exportJSON = () => {
-    const blob = new Blob(
-      [JSON.stringify(report, null, 2)],
-      {
-        type: "application/json",
-      }
-    );
+    try {
+      const blob = new Blob(
+        [JSON.stringify(report, null, 2)],
+        {
+          type: "application/json",
+        }
+      );
 
-    const url = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
+      const link = document.createElement("a");
 
-    link.href = url;
-    link.download = `report_${report.report_id}.json`;
+      link.href = url;
+      link.download = `report_${report.report_id}.json`;
 
-    document.body.appendChild(link);
+      link.click();
 
-    link.click();
+      URL.revokeObjectURL(url);
 
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
+      toast.success("JSON exported successfully");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to export JSON");
+    }
   };
 
   const exportPDF = () => {
-    alert("PDF Export coming soon!");
+    try {
+      const pdf = new jsPDF();
+
+      let y = 20;
+
+      pdf.setFontSize(20);
+      pdf.setTextColor(30);
+      pdf.text("LLM Regression Detection Report", 20, y);
+
+      y += 15;
+
+      pdf.setDrawColor(220);
+      pdf.line(20, y, 190, y);
+
+      y += 10;
+
+      pdf.setFontSize(12);
+
+      const rows = [
+        ["Report ID", report.report_id],
+        ["Model", report.model],
+        ["Prompt", report.prompt_name],
+        ["Prompt Version", report.prompt_version],
+        ["Dataset", report.dataset_name],
+        ["Accuracy", `${report.current_accuracy}%`],
+        ["Health", report.health_status],
+        ["Recommendation", report.deployment_recommendation],
+        ["Improvements", report.improvements?.length ?? 0],
+        ["Regressions", report.regressions?.length ?? 0],
+        ["Unchanged Passes", report.unchanged_passes?.length ?? 0],
+        ["Still Failing", report.still_failing?.length ?? 0],
+      ];
+
+      const sanitize = (value) =>
+        String(value ?? "")
+          .replace(/[^\x20-\x7E]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      rows.forEach(([key, value]) => {
+        pdf.setFont(undefined, "bold");
+        pdf.text(`${key}:`, 20, y);
+
+        pdf.setFont(undefined, "normal");
+
+        const wrapped = pdf.splitTextToSize(
+          sanitize(value),
+          110
+        );
+
+        pdf.text(wrapped, 75, y);
+
+        y += Math.max(10, wrapped.length * 7);
+      });
+
+      pdf.setDrawColor(220);
+      pdf.line(20, y, 190, y);
+
+      y += 10;
+
+      pdf.setFontSize(10);
+      pdf.setTextColor(120);
+
+      pdf.text(
+        `Generated: ${new Date().toLocaleString()}`,
+        20,
+        y
+      );
+
+      pdf.save(`report_${report.report_id}.pdf`);
+
+      toast.success("PDF exported successfully");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to export PDF");
+    }
   };
 
   if (!report) {
@@ -89,15 +167,9 @@ export default function ReportDetails({
       toggleTheme={toggleTheme}
     >
       <Stack
-        direction={{
-          xs: "column",
-          md: "row",
-        }}
+        direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
-        alignItems={{
-          xs: "flex-start",
-          md: "center",
-        }}
+        alignItems={{ xs: "flex-start", md: "center" }}
         spacing={2}
         mb={3}
       >
@@ -130,7 +202,10 @@ export default function ReportDetails({
         </Stack>
       </Stack>
 
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+      >
         <Grid size={{ xs: 12, md: 6 }}>
           <Card
             elevation={0}
@@ -214,13 +289,9 @@ export default function ReportDetails({
         </Grid>
       </Grid>
 
-      <ImprovementTable
-        improvements={report.improvements}
-      />
+      <ImprovementTable improvements={report.improvements} />
 
-      <RegressionTable
-        regressions={report.regressions}
-      />
+      <RegressionTable regressions={report.regressions} />
 
       <UnchangedPassesTable
         unchangedPasses={report.unchanged_passes}

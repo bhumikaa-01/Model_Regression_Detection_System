@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
+
+import Aurora from "../effects/Aurora";
 
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
@@ -17,91 +20,30 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 
-import { useNavigate } from "react-router-dom";
-
 export default function HeroBanner() {
   const navigate = useNavigate();
 
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        y: 35,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.8,
-      }}
+      initial={{ opacity: 0, y: 35 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
     >
       <Paper
         elevation={0}
         sx={{
           p: { xs: 4, md: 6 },
           borderRadius: 5,
-          background:
-            "linear-gradient(135deg,#F8FBFF 0%,#EEF4FF 45%,#FFFFFF 100%)",
+          position: "relative",
+          overflow: "hidden",
           border: "1px solid",
           borderColor: "divider",
-          overflow: "hidden",
-          position: "relative",
-          boxShadow:
-            "0 20px 60px rgba(0,0,0,0.05)",
+          background:
+            "linear-gradient(135deg,#F8FBFF 0%,#EEF4FF 45%,#FFFFFF 100%)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.05)",
         }}
       >
-        {/* Animated Background */}
-
-        <Box
-          component={motion.div}
-          animate={{
-            x: [0, 40, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          sx={{
-            position: "absolute",
-            width: 320,
-            height: 320,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle,#2563EB25,transparent 70%)",
-            top: -120,
-            right: -70,
-            filter: "blur(40px)",
-            zIndex: 0,
-          }}
-        />
-
-        <Box
-          component={motion.div}
-          animate={{
-            x: [0, -50, 0],
-            y: [0, 40, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          sx={{
-            position: "absolute",
-            width: 260,
-            height: 260,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle,#7C3AED25,transparent 70%)",
-            bottom: -80,
-            left: -60,
-            filter: "blur(45px)",
-            zIndex: 0,
-          }}
-        />
+        <Aurora />
 
         <Grid
           container
@@ -112,14 +54,16 @@ export default function HeroBanner() {
             zIndex: 2,
           }}
         >
-          {/* LEFT */}
-
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
+              {/* Fixed flexWrap warning */}
               <Stack
                 direction="row"
-                spacing={1}
-                flexWrap="wrap"
+                useFlexGap
+                sx={{
+                  flexWrap: "wrap",
+                  gap: 1,
+                }}
               >
                 <Chip
                   icon={<VerifiedIcon />}
@@ -178,10 +122,11 @@ export default function HeroBanner() {
                   lineHeight: 1.8,
                 }}
               >
-                Continuously evaluate Large Language
-                Models, compare historical runs,
-                detect regressions, visualize quality
-                trends and confidently deploy
+                Continuously evaluate Large Language Models,
+                compare historical runs,
+                detect regressions,
+                visualize quality trends
+                and confidently deploy
                 production-grade AI systems.
               </Typography>
 
@@ -202,14 +147,14 @@ export default function HeroBanner() {
                   }}
                   variant="contained"
                   size="large"
-                  onClick={() =>
-                    navigate("/reports")
-                  }
                   sx={{
                     px: 5,
                     py: 1.5,
                     borderRadius: 3,
                   }}
+                  onClick={() =>
+                    navigate("/reports")
+                  }
                 >
                   View Reports
                 </Button>
@@ -224,22 +169,20 @@ export default function HeroBanner() {
                   }}
                   variant="outlined"
                   size="large"
-                  onClick={() =>
-                    navigate("/analytics")
-                  }
                   sx={{
                     px: 5,
                     py: 1.5,
                     borderRadius: 3,
                   }}
+                  onClick={() =>
+                    navigate("/analytics")
+                  }
                 >
                   View Analytics
                 </Button>
               </Stack>
             </Stack>
           </Grid>
-
-          {/* RIGHT */}
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Paper
@@ -261,10 +204,12 @@ export default function HeroBanner() {
                 borderRadius: 5,
                 p: 4,
                 background:
-                  "rgba(255,255,255,0.65)",
+                  "rgba(255,255,255,0.18)",
                 backdropFilter: "blur(18px)",
-                border: "1px solid",
-                borderColor: "divider",
+                border:
+                  "1px solid rgba(255,255,255,0.25)",
+                boxShadow:
+                  "0 8px 32px rgba(31,38,135,0.18)",
               }}
             >
               <Stack spacing={4}>
@@ -351,8 +296,7 @@ export default function HeroBanner() {
                       color="text.secondary"
                       variant="body2"
                     >
-                      Production-grade quality
-                      assurance
+                      Production-grade quality assurance
                     </Typography>
                   </Box>
                 </Stack>
