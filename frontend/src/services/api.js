@@ -27,4 +27,10 @@ export const getAnalytics = async () => {
   return response.data;
 };
 
+// Run Evaluation
+export const runEvaluation = async (payload) => {
+  const response = await api.post("/evaluations/run", payload);
+  return response.data;
+};
+
 export default api;

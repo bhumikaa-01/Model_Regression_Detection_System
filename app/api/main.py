@@ -7,6 +7,8 @@ from app.api.routes.analytics import router as analytics_router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
+from app.api.routes.evaluation import router as evaluation_router
+
 app = FastAPI(
     title="LLM Regression Detection API",
    description=(
@@ -53,5 +55,10 @@ app.include_router(
 
 app.include_router(
     analytics_router,
+    prefix="/api/v1"
+)
+
+app.include_router(
+    evaluation_router,
     prefix="/api/v1"
 )

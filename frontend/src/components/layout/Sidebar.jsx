@@ -15,12 +15,18 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import HistoryIcon from "@mui/icons-material/History";
 import InsightsIcon from "@mui/icons-material/Insights";
 import SettingsIcon from "@mui/icons-material/Settings";
+import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 
 const menuItems = [
   {
     text: "Dashboard",
     icon: <DashboardIcon />,
     path: "/",
+  },
+  {
+    text: "Run Evaluation",
+    icon: <PlayCircleFilledIcon />,
+    path: "/run-evaluation",
   },
   {
     text: "Reports",
@@ -87,17 +93,22 @@ export default function Sidebar() {
                 mb: 1,
                 borderRadius: 3,
                 py: 1.4,
+                transition: "all 0.25s ease",
+
                 "&.Mui-selected": {
                   bgcolor: "primary.main",
                   color: "white",
                 },
+
                 "&.Mui-selected .MuiListItemIcon-root": {
                   color: "white",
                 },
+
                 "&:hover": {
                   bgcolor: "primary.light",
                   color: "white",
                 },
+
                 "&:hover .MuiListItemIcon-root": {
                   color: "white",
                 },

@@ -8,16 +8,20 @@ from app.metrics import (
 
 class Evaluator:
     """
-    Runs evaluation on the entire golden dataset.
+    Runs evaluation on the specified golden dataset.
     """
 
     def __init__(self):
         self.classifier = EmailClassifier()
 
-    def evaluate(self, sample_size=None):
+    def evaluate(
+        self,
+        dataset_name="golden_dataset_v1.json",
+        sample_size=None,
+    ):
 
         # Load dataset
-        dataset = load_dataset()
+        dataset = load_dataset(dataset_name)
 
         # Use only a subset during development
         if sample_size is not None:

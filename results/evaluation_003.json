@@ -1,0 +1,146 @@
+[
+    {
+        "id": "email_001",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_002",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_003",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_004",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_005",
+        "expected": "billing",
+        "predicted": "billing",
+        "correct": true
+    },
+    {
+        "id": "email_006",
+        "expected": "technical",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_007",
+        "expected": "technical",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_008",
+        "expected": "technical",
+        "predicted": "technical",
+        "correct": true
+    },
+    {
+        "id": "email_009",
+        "expected": "technical",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_010",
+        "expected": "technical",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_011",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_012",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_013",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_014",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_015",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_016",
+        "expected": "general",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_017",
+        "expected": "general",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_018",
+        "expected": "general",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_019",
+        "expected": "general",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_020",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_021",
+        "expected": "billing",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_022",
+        "expected": "technical",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_023",
+        "expected": "account",
+        "predicted": null,
+        "correct": false
+    },
+    {
+        "id": "email_024",
+        "expected": "general",
+        "predicted": null,
+        "correct": false
+    }
+]

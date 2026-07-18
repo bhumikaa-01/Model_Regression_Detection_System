@@ -7,6 +7,7 @@ import ReportDetails from "./pages/ReportDetails/ReportDetails";
 import History from "./pages/History/History";
 import Analytics from "./pages/Analytics/Analytics";
 import Settings from "./pages/Settings/Settings";
+import RunEvaluation from "./pages/RunEvaluation/RunEvaluation";
 
 function App({ mode, toggleTheme }) {
   return (
@@ -95,6 +96,16 @@ function App({ mode, toggleTheme }) {
           path="/settings"
           element={
             <Settings
+              mode={mode}
+              toggleTheme={toggleTheme}
+            />
+          }
+        />
+
+        <Route
+          path="/run-evaluation"
+          element={
+            <RunEvaluation
               mode={mode}
               toggleTheme={toggleTheme}
             />

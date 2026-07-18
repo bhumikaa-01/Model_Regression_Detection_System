@@ -15,6 +15,7 @@ class EmailClassifier:
     - Automatic retries
     - Exponential backoff
     - Random jitter
+    - Intelligent retry handling
     """
 
     def __init__(self):
@@ -60,7 +61,6 @@ Customer Email:
                     },
                 )
 
-                # Invalid JSON / Parsing failed
                 if response.parsed is None:
 
                     if attempt < max_retries:
@@ -70,11 +70,10 @@ Customer Email:
                             base_delay,
                         )
 
-                        print("\nGemini returned an invalid response.")
+                        print("\nGemini returned invalid JSON.")
                         print(f"Retrying in {wait_time} seconds...\n")
 
                         time.sleep(wait_time)
-
                         continue
 
                     print("\nMaximum retry attempts reached.")
@@ -88,9 +87,26 @@ Customer Email:
 
                 error_message = str(e)
 
-                # Retry only for rate-limit errors
+                # ---------------------------------------------------
+                # Daily quota exhausted -> DO NOT RETRY
+                # ---------------------------------------------------
+
                 if (
-                    ("429" in error_message or "RESOURCE_EXHAUSTED" in error_message)
+                    "RESOURCE_EXHAUSTED" in error_message
+                    and "Quota exceeded" in error_message
+                ):
+
+                    print("\nDaily Gemini quota exhausted.")
+                    print("Skipping retries for this request.\n")
+
+                    return None
+
+                # ---------------------------------------------------
+                # Temporary rate limit -> Retry
+                # ---------------------------------------------------
+
+                if (
+                    "429" in error_message
                     and attempt < max_retries
                 ):
 
@@ -99,15 +115,18 @@ Customer Email:
                         base_delay,
                     )
 
-                    print("\nRate limit exceeded.")
+                    print("\nTemporary rate limit exceeded.")
                     print(f"Retrying in {wait_time} seconds...\n")
 
                     time.sleep(wait_time)
-
                     continue
 
-                print("\nMaximum retry attempts reached.")
-                print(f"Error:\n{e}")
+                # ---------------------------------------------------
+                # Other errors
+                # ---------------------------------------------------
+
+                print("\nRequest failed.")
+                print(error_message)
 
                 return None
 

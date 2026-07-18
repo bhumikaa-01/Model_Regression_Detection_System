@@ -1,0 +1,42 @@
+[
+  {
+    "id": "email_001",
+    "email": "Hi, I was charged twice for my monthly subscription. Can you refund one of the charges?",
+    "expected_category": "billing",
+    "expected_summary": "Customer requests a refund for a duplicate subscription charge.",
+    "difficulty": "easy",
+    "notes": "Duplicate payment."
+  },
+  {
+    "id": "email_006",
+    "email": "The app crashes every time I try to upload a document.",
+    "expected_category": "technical",
+    "expected_summary": "Customer reports the app crashing during document upload.",
+    "difficulty": "easy",
+    "notes": "Application crash."
+  },
+  {
+    "id": "email_011",
+    "email": "I forgot my password and cannot access my account.",
+    "expected_category": "account",
+    "expected_summary": "Customer cannot access the account due to a forgotten password.",
+    "difficulty": "easy",
+    "notes": "Password reset request."
+  },
+  {
+    "id": "email_016",
+    "email": "Do you offer discounts for university students?",
+    "expected_category": "general",
+    "expected_summary": "Customer asks about student discounts.",
+    "difficulty": "easy",
+    "notes": "General inquiry."
+  },
+  {
+    "id": "email_020",
+    "email": "I can't log in, and I was charged twice yesterday.",
+    "expected_category": "account",
+    "expected_summary": "Customer reports login issues and a duplicate charge.",
+    "difficulty": "hard",
+    "notes": "Multi-intent email. Account is treated as the primary category for this benchmark."
+  }
+]
