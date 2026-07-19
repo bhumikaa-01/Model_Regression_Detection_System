@@ -84,7 +84,59 @@ class ReportManager:
     "unchanged_passes": summary["unchanged_passes"],
     "still_failing": summary["still_failing"],
 }
+    def _get_report_files(self):
+        """
+        Returns all regression report files sorted by report number.
+        """
+        return sorted(
+            self.results_dir.glob("regression_report_*.json")
+        )
 
+    def list_reports(self):
+        """
+        Returns all regression report filenames.
+        """
+        return [
+            report.name
+            for report in self._get_report_files()
+        ]
+
+    def load_report(self, filename):
+        """
+        Loads a regression report.
+        """
+
+        filepath = self.results_dir / filename
+
+        if not filepath.exists():
+            raise FileNotFoundError(
+                f"{filename} does not exist."
+            )
+
+        with open(
+            filepath,
+            "r",
+            encoding="utf-8",
+        ) as file:
+
+            return json.load(file)
+
+    def get_latest_report(self):
+        """
+        Returns the latest regression report.
+        """
+
+        reports = self._get_report_files()
+
+        if not reports:
+            raise ValueError(
+                "No regression reports found."
+            )
+
+        latest = reports[-1]
+
+        return self.load_report(latest.name)
+    
         with open(filename, "w", encoding="utf-8") as file:
 
             json.dump(

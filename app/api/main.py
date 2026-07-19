@@ -4,6 +4,9 @@ from app.api.routes.health import router as health_router
 from app.api.routes.reports import router as reports_router
 from app.api.routes.analytics import router as analytics_router
 
+from app.api.routes.analytics import router as analytics_router
+
+
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
@@ -62,3 +65,5 @@ app.include_router(
     evaluation_router,
     prefix="/api/v1"
 )
+
+app.include_router(analytics_router, prefix="/api/v1")
