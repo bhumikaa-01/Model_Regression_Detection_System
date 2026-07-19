@@ -14,9 +14,13 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
+    "@tailwindcss/vite": "^4.3.3",
     "axios": "^1.18.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.42.2",
+    "geist": "^1.7.2",
     "jspdf": "^4.2.1",
+    "lucide-react": "^1.25.0",
     "motion": "^12.42.2",
     "ogl": "^1.0.11",
     "react": "^19.2.7",
@@ -25,7 +29,8 @@
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.18.1",
     "recharts": "^3.9.2",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,68 +1,63 @@
 import {
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
-
-import {
   ResponsiveContainer,
   LineChart,
   Line,
-  XAxis,
+  CartesianGrid,
   Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
-export default function AccuracyChart({ accuracy }) {
+import Card from "../ui/Card";
 
-  // Create the chart data AFTER receiving the prop
-  const data = [
-    {
-      run: "Previous",
-      accuracy: Math.max(0, accuracy - 20),
-    },
-    {
-      run: "Current",
-      accuracy: accuracy,
-    },
-  ];
+const data = [
+  { day: "Mon", accuracy: 96.2 },
+  { day: "Tue", accuracy: 96.8 },
+  { day: "Wed", accuracy: 97.5 },
+  { day: "Thu", accuracy: 97.9 },
+  { day: "Fri", accuracy: 98.4 },
+];
 
+export default function AccuracyChart() {
   return (
-    <Card
-      elevation={0}
-      sx={{
-        borderRadius: 4,
-        border: "1px solid #ECECEC",
-      }}
-    >
-      <CardContent>
-
-        <Typography
-          variant="h6"
-          fontWeight={700}
-          mb={3}
-        >
+    <Card className="h-[380px]">
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold text-white">
           Accuracy Trend
-        </Typography>
+        </h2>
 
-        <ResponsiveContainer
-          width="100%"
-          height={280}
-        >
-          <LineChart data={data}>
-            <XAxis dataKey="run" />
-            <Tooltip />
+        <p className="text-sm text-slate-400">
+          Model accuracy over recent evaluations
+        </p>
+      </div>
 
-            <Line
-              type="monotone"
-              dataKey="accuracy"
-              stroke="#6366F1"
-              strokeWidth={4}
-            />
+      <ResponsiveContainer width="100%" height="85%">
+        <LineChart data={data}>
+          <CartesianGrid
+            stroke="#334155"
+            strokeDasharray="3 3"
+          />
 
-          </LineChart>
-        </ResponsiveContainer>
+          <XAxis
+            dataKey="day"
+            stroke="#94A3B8"
+          />
 
-      </CardContent>
+          <YAxis
+            stroke="#94A3B8"
+            domain={[95, 100]}
+          />
+
+          <Tooltip />
+
+          <Line
+            type="monotone"
+            dataKey="accuracy"
+            stroke="#3B82F6"
+            strokeWidth={3}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </Card>
   );
 }

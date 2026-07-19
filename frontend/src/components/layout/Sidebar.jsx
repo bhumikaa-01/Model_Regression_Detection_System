@@ -1,136 +1,82 @@
 import {
-  Box,
-  Typography,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Chip,
-} from "@mui/material";
+  LayoutDashboard,
+  BarChart3,
+  FileText,
+  PlayCircle,
+  Activity,
+  Settings,
+  ShieldCheck,
+} from "lucide-react";
 
-import { useNavigate, useLocation } from "react-router-dom";
-
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import DescriptionIcon from "@mui/icons-material/Description";
-import HistoryIcon from "@mui/icons-material/History";
-import InsightsIcon from "@mui/icons-material/Insights";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
-
-const menuItems = [
-  {
-    text: "Dashboard",
-    icon: <DashboardIcon />,
-    path: "/",
-  },
-  {
-    text: "Run Evaluation",
-    icon: <PlayCircleFilledIcon />,
-    path: "/run-evaluation",
-  },
-  {
-    text: "Reports",
-    icon: <DescriptionIcon />,
-    path: "/reports",
-  },
-  {
-    text: "History",
-    icon: <HistoryIcon />,
-    path: "/history",
-  },
-  {
-    text: "Analytics",
-    icon: <InsightsIcon />,
-    path: "/analytics",
-  },
-  {
-    text: "Settings",
-    icon: <SettingsIcon />,
-    path: "/settings",
-  },
-];
+import SidebarItem from "./SidebarItem";
 
 export default function Sidebar() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   return (
-    <Box
-      sx={{
-        width: 270,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        borderRight: "1px solid #ECECEC",
-        backgroundColor: "#fff",
-      }}
-    >
-      <Box>
-        <Box sx={{ p: 4 }}>
-          <Typography
-            variant="h5"
-            fontWeight={800}
-          >
-            LLM Regression
-          </Typography>
+    <aside className="fixed left-0 top-0 flex h-screen w-72 flex-col border-r border-slate-800 bg-slate-950">
+      {/* Logo */}
+      <div className="border-b border-slate-800 p-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600">
+            <ShieldCheck size={24} className="text-white" />
+          </div>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Detection Platform
-          </Typography>
-        </Box>
+          <div>
+            <h1 className="text-xl font-bold text-white">
+              EvalGuard AI
+            </h1>
 
-        <List>
-          {menuItems.map((item) => (
-            <ListItemButton
-              key={item.text}
-              onClick={() => navigate(item.path)}
-              selected={location.pathname === item.path}
-              sx={{
-                mx: 2,
-                mb: 1,
-                borderRadius: 3,
-                py: 1.4,
-                transition: "all 0.25s ease",
+            <p className="text-xs text-slate-400">
+              Continuous Evaluation
+            </p>
+          </div>
+        </div>
+      </div>
 
-                "&.Mui-selected": {
-                  bgcolor: "primary.main",
-                  color: "white",
-                },
-
-                "&.Mui-selected .MuiListItemIcon-root": {
-                  color: "white",
-                },
-
-                "&:hover": {
-                  bgcolor: "primary.light",
-                  color: "white",
-                },
-
-                "&:hover .MuiListItemIcon-root": {
-                  color: "white",
-                },
-              }}
-            >
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
-
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          ))}
-        </List>
-      </Box>
-
-      <Box sx={{ p: 3 }}>
-        <Chip
-          color="success"
-          label="System Healthy"
-          sx={{ width: "100%" }}
+      {/* Navigation */}
+      <nav className="flex-1 space-y-2 p-4">
+        <SidebarItem
+          to="/dashboard"
+          icon={LayoutDashboard}
+          label="Dashboard"
         />
-      </Box>
-    </Box>
+
+        <SidebarItem
+          to="/analytics"
+          icon={BarChart3}
+          label="Analytics"
+        />
+
+        <SidebarItem
+          to="/reports"
+          icon={FileText}
+          label="Reports"
+        />
+
+        <SidebarItem
+          to="/evaluations"
+          icon={PlayCircle}
+          label="Evaluations"
+        />
+
+        <SidebarItem
+          to="/regression"
+          icon={Activity}
+          label="Regression"
+        />
+
+        <SidebarItem
+          to="/settings"
+          icon={Settings}
+          label="Settings"
+        />
+      </nav>
+
+      {/* Footer */}
+      <div className="border-t border-slate-800 p-6">
+        <p className="text-xs text-slate-500">
+          Version 1.0.0
+        </p>
+      </div>
+    </aside>
   );
 }
