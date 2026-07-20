@@ -1,63 +1,108 @@
+import {
+  ArrowRight,
+  CheckCircle2,
+  AlertTriangle,
+  CalendarDays,
+} from "lucide-react";
+
 import Card from "../ui/Card";
 
-const reports = [
-  {
-    id: "EV-001",
-    accuracy: "98.4%",
-    health: "Healthy",
-  },
-  {
-    id: "EV-002",
-    accuracy: "97.8%",
-    health: "Healthy",
-  },
-  {
-    id: "EV-003",
-    accuracy: "96.9%",
-    health: "Warning",
-  },
-];
+export default function RecentReports({ reports = [] }) {
+  const formatDate = (timestamp) => {
+    return new Date(timestamp).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
-export default function RecentReports() {
   return (
-    <Card>
+    <Card className="h-full">
+      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-white">
-          Recent Reports
-        </h2>
+        <div>
+          <h2 className="text-lg font-semibold text-white">
+            Recent Reports
+          </h2>
 
-        <button className="text-sm text-blue-400 hover:text-blue-300">
+          <p className="mt-1 text-sm text-slate-400">
+            Latest evaluation runs
+          </p>
+        </div>
+
+        <button className="text-sm font-medium text-blue-400 transition hover:text-blue-300">
           View All
         </button>
       </div>
 
-      <div className="space-y-4">
-        {reports.map((report) => (
-          <div
-            key={report.id}
-            className="flex items-center justify-between rounded-lg border border-slate-800 p-4"
-          >
-            <div>
-              <h3 className="font-medium text-white">
-                {report.id}
-              </h3>
+      {/* Table Header */}
+      <div className="mb-3 grid grid-cols-4 border-b border-slate-800 pb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <span>Report</span>
+        <span>Accuracy</span>
+        <span>Status</span>
+        <span className="text-right">Action</span>
+      </div>
 
-              <p className="text-sm text-slate-400">
-                Accuracy: {report.accuracy}
-              </p>
-            </div>
+      {/* Rows */}
+      <div className="space-y-2">
+        {reports.map((report) => {
+          const healthy =
+            report.health_status.includes("Improved") ||
+            report.deployment_recommendation.includes("Safe");
 
-            <span
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                report.health === "Healthy"
-                  ? "bg-green-500/20 text-green-400"
-                  : "bg-yellow-500/20 text-yellow-400"
-              }`}
+          return (
+            <div
+              key={report.report_id}
+              className="grid grid-cols-4 items-center rounded-xl border border-slate-800 bg-slate-900/40 p-4 transition-all duration-300 hover:border-blue-500/40 hover:bg-slate-900"
             >
-              {report.health}
-            </span>
-          </div>
-        ))}
+              {/* Report */}
+              <div>
+                <p className="font-semibold text-white">
+                  #{report.report_id}
+                </p>
+
+                <div className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                  <CalendarDays size={12} />
+                  {formatDate(report.timestamp)}
+                </div>
+              </div>
+
+              {/* Accuracy */}
+              <div className="text-sm font-semibold text-white">
+                {report.current_accuracy}%
+              </div>
+
+              {/* Health */}
+              <div>
+                <span
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
+                    healthy
+                      ? "bg-emerald-500/10 text-emerald-400"
+                      : "bg-red-500/10 text-red-400"
+                  }`}
+                >
+                  {healthy ? (
+                    <CheckCircle2 size={14} />
+                  ) : (
+                    <AlertTriangle size={14} />
+                  )}
+
+                  {report.health_status.replace(
+                    /^🟢\s*|^🟡\s*|^🔴\s*/,
+                    ""
+                  )}
+                </span>
+              </div>
+
+              {/* Action */}
+              <div className="flex justify-end">
+                <button className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white">
+                  <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </Card>
   );

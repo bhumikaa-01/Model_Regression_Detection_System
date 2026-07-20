@@ -3,6 +3,7 @@ export default function Button({
   onClick,
   type = "button",
   variant = "primary",
+  disabled = false,
   className = "",
 }) {
   const variants = {
@@ -23,6 +24,7 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`
         rounded-xl
         px-5
@@ -31,7 +33,11 @@ export default function Button({
         font-semibold
         transition-all
         duration-300
-        hover:-translate-y-0.5
+        ${
+          disabled
+            ? "cursor-not-allowed opacity-60"
+            : "hover:-translate-y-0.5"
+        }
         ${variants[variant]}
         ${className}
       `}

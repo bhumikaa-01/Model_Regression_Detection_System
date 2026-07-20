@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import Button from "../ui/Button";
 
 export default function PageHeader({
@@ -6,6 +7,8 @@ export default function PageHeader({
   subtitle,
   buttonText,
   onButtonClick,
+  buttonDisabled = false,
+  buttonLoading = false,
 }) {
   return (
     <motion.div
@@ -24,8 +27,20 @@ export default function PageHeader({
         </p>
       </div>
 
-      <Button onClick={onButtonClick}>
-        {buttonText}
+      <Button
+        onClick={onButtonClick}
+        disabled={buttonDisabled}
+      >
+        <span className="flex items-center gap-2">
+          {buttonLoading && (
+            <Loader2
+              size={18}
+              className="animate-spin"
+            />
+          )}
+
+          {buttonText}
+        </span>
       </Button>
     </motion.div>
   );
