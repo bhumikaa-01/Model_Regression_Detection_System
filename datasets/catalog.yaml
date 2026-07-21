@@ -1,0 +1,10 @@
+datasets:
+  - id: golden_dataset_v1.json
+    name: Golden Dataset v1
+    description: Production benchmark dataset
+    default: true
+
+  - id: golden_dataset_dev.json
+    name: Golden Dataset Dev
+    description: Development benchmark dataset
+    default: false

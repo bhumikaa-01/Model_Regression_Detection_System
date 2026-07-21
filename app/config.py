@@ -9,7 +9,6 @@ DEFAULT_DATASET_PATH = Path("datasets") / "dataset_config.yaml"
 
 
 def load_prompt_config(path=DEFAULT_PROMPT_PATH):
-
     with open(path, "r", encoding="utf-8") as file:
         config = yaml.safe_load(file)
 
@@ -17,7 +16,6 @@ def load_prompt_config(path=DEFAULT_PROMPT_PATH):
 
 
 def load_dataset_config(path=DEFAULT_DATASET_PATH):
-
     with open(path, "r", encoding="utf-8") as file:
         config = yaml.safe_load(file)
 

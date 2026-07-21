@@ -1,24 +1,20 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from app.api.routes.health import router as health_router
 from app.api.routes.reports import router as reports_router
 from app.api.routes.analytics import router as analytics_router
-
-from app.api.routes.analytics import router as analytics_router
-
-
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
-
 from app.api.routes.evaluation import router as evaluation_router
+from app.api.routes.config import router as config_router
 
 app = FastAPI(
     title="LLM Regression Detection API",
-   description=(
-    "Production-grade API for evaluating LLM outputs, "
-    "comparing evaluation runs, detecting regressions, "
-    "and managing versioned regression reports."
-),
+    description=(
+        "Production-grade API for evaluating LLM outputs, "
+        "comparing evaluation runs, detecting regressions, "
+        "and managing versioned regression reports."
+    ),
     version="1.0.0",
     contact={
         "name": "Bhumika Rawate",
@@ -39,6 +35,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/", include_in_schema=False)
 def root():
     """
@@ -46,24 +43,32 @@ def root():
     """
     return RedirectResponse(url="/docs")
 
+
+# -------------------------------
+# API Routes
+# -------------------------------
+
 app.include_router(
     health_router,
-    prefix="/api/v1"
+    prefix="/api/v1",
 )
 
 app.include_router(
     reports_router,
-    prefix="/api/v1"
+    prefix="/api/v1",
 )
 
 app.include_router(
     analytics_router,
-    prefix="/api/v1"
+    prefix="/api/v1",
 )
 
 app.include_router(
     evaluation_router,
-    prefix="/api/v1"
+    prefix="/api/v1",
 )
 
-app.include_router(analytics_router, prefix="/api/v1")
+app.include_router(
+    config_router,
+    prefix="/api/v1",
+)

@@ -8,39 +8,65 @@ const api = axios.create({
   },
 });
 
-/* ---------------- Dashboard ---------------- */
+/* ================= Dashboard ================= */
 
 export const getLatestReport = async () => {
-  const { data } = await api.get("/reports/latest");
-  return data;
+  const response = await api.get("/reports/latest");
+  return response.data.data;
 };
 
 export const getAnalytics = async () => {
-  const { data } = await api.get("/analytics");
-  return data;
+  const response = await api.get("/analytics");
+  return response.data.data;
 };
 
-/* ---------------- Reports ---------------- */
+/* ================= Reports ================= */
 
 export const getAllReports = async () => {
-  const { data } = await api.get("/reports");
-  return data;
+  const response = await api.get("/reports");
+  return response.data.data;
 };
 
 export const getReportById = async (reportId) => {
-  const { data } = await api.get(`/reports/${reportId}`);
-  return data;
+  const response = await api.get(`/reports/${reportId}`);
+  return response.data.data;
 };
 
-/* ---------------- Evaluation ---------------- */
+/* ================= Evaluation ================= */
 
-export const runEvaluation = async (payload) => {
-  const { data } = await api.post(
-    "/evaluations/run",
-    payload
-  );
-
-  return data;
+export const getEvaluationConfig = async () => {
+  const response = await api.get("/evaluations/config");
+  return response.data.data;
 };
+
+export const runEvaluation = async ({
+  model,
+  prompt_version,
+  dataset,
+}) => {
+  const response = await api.post("/evaluations/run", {
+    model,
+    prompt_version,
+    dataset,
+  });
+
+  return response.data.data;
+};
+
+/* ================= Error Interceptor ================= */
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("API Error:", error);
+
+    if (error.response) {
+      console.error("Status:", error.response.status);
+      console.error("Response:", error.response.data);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default api;
