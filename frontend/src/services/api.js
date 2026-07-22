@@ -12,11 +12,15 @@ const api = axios.create({
 
 export const getLatestReport = async () => {
   const response = await api.get("/reports/latest");
-  return response.data.data;
+
+  // FastAPI returns the ReportResponse directly
+  return response.data;
 };
 
 export const getAnalytics = async () => {
   const response = await api.get("/analytics");
+
+  // Analytics endpoint returns a wrapper
   return response.data.data;
 };
 
@@ -24,18 +28,23 @@ export const getAnalytics = async () => {
 
 export const getAllReports = async () => {
   const response = await api.get("/reports");
-  return response.data.data;
+
+  // FastAPI returns List[ReportResponse]
+  return response.data;
 };
 
 export const getReportById = async (reportId) => {
   const response = await api.get(`/reports/${reportId}`);
-  return response.data.data;
+
+  // FastAPI returns ReportResponse directly
+  return response.data;
 };
 
 /* ================= Evaluation ================= */
 
 export const getEvaluationConfig = async () => {
   const response = await api.get("/evaluations/config");
+
   return response.data.data;
 };
 

@@ -10,6 +10,9 @@ import Regression from "./pages/Regression";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
+import ReportDetails from "./pages/ReportDetails";
+import CompareReports from "./pages/CompareReports";
+
 function App() {
   return (
     <Routes>
@@ -19,6 +22,10 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="reports" element={<Reports />} />
+        <Route path="reports/:reportId" element={<ReportDetails />} />
+
+        <Route path="compare" element={<CompareReports />} />
+
         <Route path="evaluations" element={<Evaluations />} />
         <Route path="regression" element={<Regression />} />
         <Route path="settings" element={<Settings />} />
