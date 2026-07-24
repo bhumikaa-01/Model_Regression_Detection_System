@@ -7,6 +7,7 @@ import ReportHeader from "../components/report/ReportHeader";
 import ReportMetrics from "../components/report/ReportMetrics";
 import ReportSummary from "../components/report/ReportSummary";
 import ComparisonTable from "../components/report/ComparisonTable";
+import ExportMenu from "../components/report/ExportMenu";
 
 export default function ReportDetails() {
   const { reportId } = useParams();
@@ -56,15 +57,29 @@ export default function ReportDetails() {
 
   return (
     <div className="space-y-8 p-8">
+      {/* Header */}
 
-      <ReportHeader report={report} />
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex-1">
+          <ReportHeader report={report} />
+        </div>
+
+        <div className="flex justify-end">
+          <ExportMenu report={report} />
+        </div>
+      </div>
+
+      {/* Metrics */}
 
       <ReportMetrics report={report} />
 
+      {/* Summary */}
+
       <ReportSummary report={report} />
 
-      <ComparisonTable report={report} />
+      {/* Comparison Table */}
 
+      <ComparisonTable report={report} />
     </div>
   );
 }
