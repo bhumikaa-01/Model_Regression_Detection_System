@@ -1,0 +1,22 @@
+.overview-tab {
+    width: 100%;
+}
+
+.overview-card {
+    height: 100%;
+    border-radius: 12px;
+}
+
+.overview-card .ant-card-head {
+    font-weight: 600;
+}
+
+.overview-card .info-item:not(:last-child) {
+    margin-bottom: 18px;
+}
+
+.overview-card .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}

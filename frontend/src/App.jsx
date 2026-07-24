@@ -5,7 +5,7 @@ import MainLayout from "./layouts/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
-import Evaluations from "./pages/Evaluations";
+import Evaluations from "./pages/Evaluations/index";
 import Regression from "./pages/Regression";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
