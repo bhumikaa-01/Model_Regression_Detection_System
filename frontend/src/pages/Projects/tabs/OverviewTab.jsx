@@ -7,7 +7,6 @@ import {
   Tag,
   Typography,
   Progress,
-  Statistic,
   Divider,
 } from "antd";
 
@@ -20,6 +19,9 @@ import {
   ThunderboltOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
+
+import MetricCard from "../../../components/common/MetricCard";
+import "./styles/OverviewTab.css";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -58,42 +60,51 @@ const OverviewTab = ({ project }) => {
 
                 <br />
 
-                <Tag color="blue">
-                  <ExperimentOutlined />
-                  {" "}
+                <Tag
+                  color="blue"
+                  icon={<ExperimentOutlined />}
+                >
                   {project.provider}
                 </Tag>
+
               </Col>
 
               <Col xs={12} md={6}>
+
                 <Text type="secondary">
                   Model
                 </Text>
 
                 <br />
 
-                <Tag color="purple">
-                  <BranchesOutlined />
-                  {" "}
+                <Tag
+                  color="purple"
+                  icon={<BranchesOutlined />}
+                >
                   {project.model}
                 </Tag>
+
               </Col>
 
               <Col xs={12} md={6}>
+
                 <Text type="secondary">
                   Status
                 </Text>
 
                 <br />
 
-                <Tag color="green">
-                  <CheckCircleFilled />
-                  {" "}
+                <Tag
+                  color="green"
+                  icon={<CheckCircleFilled />}
+                >
                   {project.status}
                 </Tag>
+
               </Col>
 
               <Col xs={12} md={6}>
+
                 <Text type="secondary">
                   Created
                 </Text>
@@ -106,6 +117,7 @@ const OverviewTab = ({ project }) => {
                     {project.createdAt}
                   </Text>
                 </Space>
+
               </Col>
 
             </Row>
@@ -114,7 +126,7 @@ const OverviewTab = ({ project }) => {
 
         </Col>
 
-        {/* Health */}
+        {/* Health Card */}
 
         <Col xs={24} lg={8}>
 
@@ -124,23 +136,28 @@ const OverviewTab = ({ project }) => {
               ❤️ Project Health
             </Title>
 
-            <Progress
-              type="dashboard"
-              percent={project.healthScore}
-              strokeColor="#52c41a"
-            />
+            <div className="health-progress-wrapper">
+
+              <Progress
+                type="dashboard"
+                percent={project.healthScore}
+                strokeWidth={10}
+                strokeColor={{
+                  "0%": "#3b82f6",
+                  "100%": "#22c55e",
+                }}
+              />
+
+            </div>
 
             <Title
               level={2}
-              style={{
-                marginTop: 20,
-                marginBottom: 0,
-              }}
+              className="health-score"
             >
               {project.healthScore}%
             </Title>
 
-            <Text type="secondary">
+            <Text className="health-status">
               Excellent System Health
             </Text>
 
@@ -149,8 +166,7 @@ const OverviewTab = ({ project }) => {
         </Col>
 
       </Row>
-
-      {/* ===========================
+            {/* ===========================
           KPI SECTION
       ============================ */}
 
@@ -158,79 +174,48 @@ const OverviewTab = ({ project }) => {
         gutter={[20, 20]}
         style={{ marginTop: 24 }}
       >
-
         <Col xs={24} sm={12} xl={6}>
-
-          <Card className="stat-card">
-
-            <Statistic
-              title="Accuracy"
-              value={project.averageAccuracy}
-              suffix="%"
-            />
-
-            <Text type="secondary">
-              Production Quality
-            </Text>
-
-          </Card>
-
+          <MetricCard
+            title="Accuracy"
+            value={`${project.averageAccuracy}%`}
+            icon={<ExperimentOutlined />}
+            trend="Production Quality"
+            trendColor="#52c41a"
+          />
         </Col>
 
         <Col xs={24} sm={12} xl={6}>
-
-          <Card className="stat-card">
-
-            <Statistic
-              title="Evaluations"
-              value={project.evaluations}
-            />
-
-            <Text type="secondary">
-              Total Runs
-            </Text>
-
-          </Card>
-
+          <MetricCard
+            title="Evaluations"
+            value={project.evaluations}
+            icon={<DatabaseOutlined />}
+            trend="Total Runs"
+            trendColor="#1677ff"
+          />
         </Col>
 
         <Col xs={24} sm={12} xl={6}>
-
-          <Card className="stat-card">
-
-            <Statistic
-              title="Prompt Versions"
-              value={project.promptVersions}
-            />
-
-            <Text type="secondary">
-              Active Versions
-            </Text>
-
-          </Card>
-
+          <MetricCard
+            title="Prompt Versions"
+            value={project.promptVersions}
+            icon={<BranchesOutlined />}
+            trend="Active Versions"
+            trendColor="#722ed1"
+          />
         </Col>
 
         <Col xs={24} sm={12} xl={6}>
-
-          <Card className="stat-card">
-
-            <Statistic
-              title="Datasets"
-              value={project.datasets}
-            />
-
-            <Text type="secondary">
-              Connected Datasets
-            </Text>
-
-          </Card>
-
+          <MetricCard
+            title="Datasets"
+            value={project.datasets}
+            icon={<DatabaseOutlined />}
+            trend="Connected Datasets"
+            trendColor="#fa8c16"
+          />
         </Col>
-
       </Row>
 
-            {/* ===========================
+      {/* ===========================
           AI STACK + ACTIVITY
       ============================ */}
 
@@ -255,15 +240,17 @@ const OverviewTab = ({ project }) => {
               style={{ marginTop: 16 }}
             >
 
-              <Tag color="blue">
-                <ExperimentOutlined />
-                {" "}
+              <Tag
+                color="blue"
+                icon={<ExperimentOutlined />}
+              >
                 {project.provider}
               </Tag>
 
-              <Tag color="purple">
-                <BranchesOutlined />
-                {" "}
+              <Tag
+                color="purple"
+                icon={<BranchesOutlined />}
+              >
                 {project.model}
               </Tag>
 
@@ -293,13 +280,16 @@ const OverviewTab = ({ project }) => {
 
             <Space
               direction="vertical"
-              size={16}
+              size={18}
               style={{ width: "100%" }}
             >
 
               <Space>
                 <SafetyCertificateOutlined
-                  style={{ color: "#52c41a" }}
+                  style={{
+                    color: "#52c41a",
+                    fontSize: 18,
+                  }}
                 />
                 <Text>
                   Continuous Evaluation Enabled
@@ -308,7 +298,10 @@ const OverviewTab = ({ project }) => {
 
               <Space>
                 <ThunderboltOutlined
-                  style={{ color: "#faad14" }}
+                  style={{
+                    color: "#faad14",
+                    fontSize: 18,
+                  }}
                 />
                 <Text>
                   Regression Monitoring Active
@@ -317,7 +310,10 @@ const OverviewTab = ({ project }) => {
 
               <Space>
                 <DatabaseOutlined
-                  style={{ color: "#1677ff" }}
+                  style={{
+                    color: "#1677ff",
+                    fontSize: 18,
+                  }}
                 />
                 <Text>
                   Connected to {project.datasets} Dataset(s)
@@ -329,8 +325,7 @@ const OverviewTab = ({ project }) => {
           </Card>
 
         </Col>
-
-        {/* Recent Activity */}
+                {/* Recent Activity */}
 
         <Col xs={24} lg={12}>
 
@@ -405,7 +400,7 @@ const OverviewTab = ({ project }) => {
                     fontWeight: 600,
                   }}
                 >
-                  System Stable
+                  ✅ System Stable
                 </Text>
 
               </div>
@@ -431,21 +426,25 @@ const OverviewTab = ({ project }) => {
           📈 Executive Summary
         </Title>
 
-        <Paragraph
-          style={{ marginTop: 18 }}
-        >
+        <Paragraph style={{ marginTop: 18 }}>
+
           This AI project is currently operating in a healthy production
-          state with an overall health score of{" "}
-          <strong>{project.healthScore}%</strong>.
-          Evaluation accuracy remains consistently high at{" "}
-          <strong>{project.averageAccuracy}%</strong>,
-          while the regression rate is maintained at{" "}
+          environment with an overall health score of{" "}
+          <strong>{project.healthScore}%</strong>. The model maintains an
+          average evaluation accuracy of{" "}
+          <strong>{project.averageAccuracy}%</strong>, while the regression
+          rate remains at{" "}
           <strong>{project.regressionRate}%</strong>.
-          The application currently manages{" "}
-          <strong>{project.datasets}</strong> dataset(s),
-          <strong> {project.promptVersions}</strong> active prompt version(s),
-          and has successfully completed{" "}
+
+          <br />
+          <br />
+
+          The project currently manages{" "}
+          <strong>{project.datasets}</strong> datasets,
+          <strong> {project.promptVersions}</strong> prompt versions and has
+          successfully completed{" "}
           <strong>{project.evaluations}</strong> evaluation runs.
+
         </Paragraph>
 
         <Divider />
@@ -485,5 +484,3 @@ const OverviewTab = ({ project }) => {
 };
 
 export default OverviewTab;
-
-   

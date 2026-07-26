@@ -1,0 +1,156 @@
+/* ==========================================================
+   OVERVIEW TAB
+========================================================== */
+
+.overview-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================================
+   CARDS
+========================================================== */
+
+.overview-card {
+  background: linear-gradient(
+    180deg,
+    #1e293b,
+    #0f172a
+  ) !important;
+
+  border: 1px solid rgba(59, 130, 246, 0.12) !important;
+
+  border-radius: 18px !important;
+
+  transition: all 0.3s ease;
+
+  overflow: hidden;
+}
+
+.overview-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(59, 130, 246, 0.25) !important;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.overview-card .ant-card-body {
+  padding: 28px;
+}
+
+/* ==========================================================
+   TYPOGRAPHY
+========================================================== */
+
+.overview-card h1,
+.overview-card h2,
+.overview-card h3,
+.overview-card h4,
+.overview-card h5,
+.overview-card h6 {
+  color: #ffffff !important;
+}
+
+.overview-card .ant-typography {
+  color: #e2e8f0 !important;
+}
+
+.overview-card .ant-typography-secondary {
+  color: #94a3b8 !important;
+}
+
+/* ==========================================================
+   TAGS
+========================================================== */
+
+.overview-card .ant-tag {
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-weight: 500;
+}
+
+/* ==========================================================
+   DIVIDER
+========================================================== */
+
+.overview-card .ant-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================
+   HEALTH CARD
+========================================================== */
+
+.health-card {
+  text-align: center;
+}
+
+.health-progress-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 24px 0;
+}
+
+.health-score {
+  color: #ffffff !important;
+
+  margin-bottom: 8px !important;
+}
+
+.health-status {
+  color: #94a3b8 !important;
+}
+
+/* Progress */
+
+.health-card .ant-progress-text {
+  color: #ffffff !important;
+}
+
+/* ==========================================================
+   RECENT ACTIVITY
+========================================================== */
+
+.overview-card .ant-space-item {
+  width: 100%;
+}
+
+/* ==========================================================
+   LINKS
+========================================================== */
+
+.overview-card a {
+  color: #60a5fa;
+}
+
+.overview-card a:hover {
+  color: #93c5fd;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 992px) {
+
+  .overview-card .ant-card-body {
+    padding: 22px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .overview-tab {
+    gap: 18px;
+  }
+
+  .overview-card .ant-card-body {
+    padding: 18px;
+  }
+
+}

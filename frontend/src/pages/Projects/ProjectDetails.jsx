@@ -22,7 +22,6 @@ import {
   Typography,
 } from "antd";
 
-import SectionHeader from "../../components/common/SectionHeader";
 import StatusBadge from "../../components/common/StatusBadge";
 import MetricCard from "../../components/common/MetricCard";
 
@@ -68,50 +67,37 @@ const ProjectDetails = () => {
     {
       key: "overview",
       label: "Overview",
-      children: (
-        <OverviewTab project={project} />
-      ),
+      children: <OverviewTab project={project} />,
     },
     {
       key: "evaluations",
       label: "Evaluations",
-      children: (
-        <EvaluationsTab project={project} />
-      ),
+      children: <EvaluationsTab project={project} />,
     },
     {
       key: "prompts",
       label: "Prompt Versions",
-      children: (
-        <PromptVersionsTab project={project} />
-      ),
+      children: <PromptVersionsTab project={project} />,
     },
     {
       key: "datasets",
       label: "Datasets",
-      children: (
-        <DatasetsTab project={project} />
-      ),
+      children: <DatasetsTab project={project} />,
     },
     {
       key: "metrics",
       label: "Metrics",
-      children: (
-        <MetricsTab project={project} />
-      ),
+      children: <MetricsTab project={project} />,
     },
     {
       key: "settings",
       label: "Settings",
-      children: (
-        <SettingsTab project={project} />
-      ),
+      children: <SettingsTab project={project} />,
     },
   ];
 
   return (
     <div className="project-details-page">
-
       {/* Back Button */}
 
       <Button
@@ -125,15 +111,12 @@ const ProjectDetails = () => {
       {/* Hero */}
 
       <Card className="project-hero-card">
-
         <Row
           justify="space-between"
           align="top"
           gutter={[24, 24]}
         >
-
           <Col flex="auto">
-
             <Space
               align="center"
               size={12}
@@ -146,9 +129,7 @@ const ProjectDetails = () => {
                 {project.name}
               </Title>
 
-              <StatusBadge
-                status={project.status}
-              />
+              <StatusBadge status={project.status} />
             </Space>
 
             <Paragraph className="project-description">
@@ -190,42 +171,34 @@ const ProjectDetails = () => {
             </Space>
 
             <div className="project-meta">
-
-              <Space size={20} wrap>
-
+              <Space
+                size={20}
+                wrap
+              >
                 <Text type="secondary">
                   <CalendarOutlined />
                   {"  "}
-                  Created{" "}
-                  {project.createdAt}
+                  Created {project.createdAt}
                 </Text>
 
                 <Text type="secondary">
                   <ClockCircleOutlined />
                   {"  "}
-                  Last Run{" "}
-                  {project.lastRun}
+                  Last Run {project.lastRun}
                 </Text>
-
               </Space>
-
             </div>
-
           </Col>
 
           <Col>
-
             <Button
               type="primary"
               icon={<ReloadOutlined />}
             >
               Refresh
             </Button>
-
           </Col>
-
         </Row>
-
       </Card>
 
       {/* KPI */}
@@ -234,53 +207,72 @@ const ProjectDetails = () => {
         gutter={[20, 20]}
         className="project-kpis"
       >
-
-        <Col xs={24} sm={12} xl={6}>
+        <Col
+          xs={24}
+          sm={12}
+          xl={6}
+        >
           <MetricCard
             title="Accuracy"
             value={`${project.averageAccuracy}%`}
-            subtitle="Excellent"
+            icon={<ExperimentOutlined />}
+            trend="Excellent"
+            trendColor="#52c41a"
           />
         </Col>
 
-        <Col xs={24} sm={12} xl={6}>
+        <Col
+          xs={24}
+          sm={12}
+          xl={6}
+        >
           <MetricCard
             title="Evaluations"
             value={project.evaluations}
-            subtitle="Executed"
+            icon={<DatabaseOutlined />}
+            trend="Executed"
+            trendColor="#1677ff"
           />
         </Col>
 
-        <Col xs={24} sm={12} xl={6}>
+        <Col
+          xs={24}
+          sm={12}
+          xl={6}
+        >
           <MetricCard
             title="Health Score"
             value={`${project.healthScore}%`}
-            subtitle="Healthy"
+            icon={<CheckCircleFilled />}
+            trend="Healthy"
+            trendColor="#52c41a"
           />
         </Col>
 
-        <Col xs={24} sm={12} xl={6}>
+        <Col
+          xs={24}
+          sm={12}
+          xl={6}
+        >
           <MetricCard
             title="Regression"
             value={`${project.regressionRate}%`}
-            subtitle="Stable"
+            icon={<BranchesOutlined />}
+            trend="Stable"
+            trendColor="#faad14"
           />
         </Col>
-
       </Row>
 
       {/* Tabs */}
 
       <Card className="project-tabs-card">
-
         <Tabs
           defaultActiveKey="overview"
           size="large"
           items={tabs}
         />
-
       </Card>
-
     </div>
   );
 };

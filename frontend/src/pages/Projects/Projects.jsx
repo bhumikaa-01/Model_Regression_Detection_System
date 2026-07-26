@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Empty,
-  Modal,
   Row,
   Col,
   Card,
@@ -15,11 +14,11 @@ import {
   FolderOpenOutlined,
 } from "@ant-design/icons";
 
-import SectionHeader from "../../components/common/SectionHeader";
-
 import ProjectStats from "./components/ProjectStats";
 import ProjectFilters from "./components/ProjectFilters";
 import ProjectCard from "./components/ProjectCard";
+import CreateProjectModal from "./components/CreateProjectModal";
+import ProjectSkeleton from "./components/ProjectSkeleton";
 
 import { mockProjects } from "./mockProjects";
 
@@ -28,12 +27,25 @@ import "./styles/Projects.css";
 const { Title, Paragraph } = Typography;
 
 const Projects = () => {
-  const [projects] = useState(mockProjects);
+  const [projects, setProjects] = useState(mockProjects);
+
+  const [loading, setLoading] = useState(true);
 
   const [searchText, setSearchText] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [providerFilter, setProviderFilter] = useState("All");
   const [sortBy, setSortBy] = useState("name");
+
+  const [isCreateModalOpen, setIsCreateModalOpen] =
+    useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredProjects = useMemo(() => {
     let data = [...projects];
@@ -107,24 +119,33 @@ const Projects = () => {
     sortBy,
   ]);
 
-  const handleCreateProject = () => {
-    Modal.info({
-      title: "Create Project",
-      centered: true,
-      content:
-        "Project creation wizard will be implemented in the next module.",
-    });
+  const openCreateModal = () => {
+    setIsCreateModalOpen(true);
   };
+
+  const closeCreateModal = () => {
+    setIsCreateModalOpen(false);
+  };
+
+  const handleCreateProject = (project) => {
+    setProjects((prev) => [project, ...prev]);
+    setIsCreateModalOpen(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="projects-page">
+        <ProjectSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="projects-page">
-
       {/* Hero */}
 
       <Card className="projects-hero">
-
         <div>
-
           <Space align="center" size={12}>
             <FolderOpenOutlined
               style={{
@@ -139,7 +160,6 @@ const Projects = () => {
             >
               Projects
             </Title>
-
           </Space>
 
           <Paragraph
@@ -148,11 +168,11 @@ const Projects = () => {
               marginBottom: 0,
             }}
           >
-            Organize AI applications, monitor model performance,
-            manage datasets, prompt versions and evaluation
-            pipelines from one centralized workspace.
+            Organize AI applications, monitor model
+            performance, manage datasets, prompt
+            versions and evaluation pipelines from one
+            centralized workspace.
           </Paragraph>
-
         </div>
 
         <Button
@@ -160,11 +180,10 @@ const Projects = () => {
           size="large"
           icon={<PlusOutlined />}
           className="projects-create-btn"
-          onClick={handleCreateProject}
+          onClick={openCreateModal}
         >
           Create Project
         </Button>
-
       </Card>
 
       {/* Statistics */}
@@ -182,27 +201,51 @@ const Projects = () => {
         onProviderChange={setProviderFilter}
         sortBy={sortBy}
         onSortChange={setSortBy}
-        onCreateProject={handleCreateProject}
+        onCreateProject={openCreateModal}
       />
 
-      {/* Projects */}
+      {/* Project Grid */}
 
       {filteredProjects.length === 0 ? (
-
         <Card className="projects-empty">
-
           <Empty
-            description="No projects match your current filters."
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description={
+              <div>
+                <Title
+                  level={4}
+                  style={{ marginBottom: 8 }}
+                >
+                  No Projects Found
+                </Title>
+
+                <Paragraph
+                  type="secondary"
+                  style={{ marginBottom: 24 }}
+                >
+                  No projects match your current
+                  filters.
+                  <br />
+                  Try changing your search criteria
+                  or create a new AI evaluation
+                  project.
+                </Paragraph>
+
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  size="large"
+                  onClick={openCreateModal}
+                >
+                  Create Project
+                </Button>
+              </div>
+            }
           />
-
         </Card>
-
       ) : (
-
         <Row gutter={[24, 24]}>
-
           {filteredProjects.map((project) => (
-
             <Col
               xs={24}
               md={12}
@@ -213,13 +256,17 @@ const Projects = () => {
                 project={project}
               />
             </Col>
-
           ))}
-
         </Row>
-
       )}
 
+      {/* Create Project Modal */}
+
+      <CreateProjectModal
+        open={isCreateModalOpen}
+        onCancel={closeCreateModal}
+        onCreate={handleCreateProject}
+      />
     </div>
   );
 };

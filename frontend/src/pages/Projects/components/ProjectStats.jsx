@@ -8,6 +8,8 @@ import {
   HeartOutlined,
 } from "@ant-design/icons";
 
+import "../styles/ProjectStats.css";
+
 const ProjectStats = ({ projects }) => {
   const totalProjects = projects.length;
 
@@ -19,8 +21,7 @@ const ProjectStats = ({ projects }) => {
     totalProjects > 0
       ? (
           projects.reduce(
-            (sum, project) =>
-              sum + project.averageAccuracy,
+            (sum, project) => sum + project.averageAccuracy,
             0
           ) / totalProjects
         ).toFixed(1)
@@ -30,8 +31,7 @@ const ProjectStats = ({ projects }) => {
     totalProjects > 0
       ? (
           projects.reduce(
-            (sum, project) =>
-              sum + project.healthScore,
+            (sum, project) => sum + project.healthScore,
             0
           ) / totalProjects
         ).toFixed(1)
@@ -52,14 +52,14 @@ const ProjectStats = ({ projects }) => {
     },
     {
       title: "Average Accuracy",
-      value: averageAccuracy,
+      value: Number(averageAccuracy),
       suffix: "%",
       icon: <RiseOutlined />,
       color: "#722ed1",
     },
     {
       title: "Overall Health",
-      value: averageHealth,
+      value: Number(averageHealth),
       suffix: "%",
       icon: <HeartOutlined />,
       color: "#eb2f96",
@@ -76,10 +76,15 @@ const ProjectStats = ({ projects }) => {
         <Col
           xs={24}
           sm={12}
+          lg={12}
           xl={6}
           key={item.title}
         >
-          <Card className="project-stat-card">
+          <Card
+            hoverable
+            className="project-stat-card"
+            bodyStyle={{ padding: 24 }}
+          >
             <div className="project-stat-header">
               <div
                 className="project-stat-icon"
@@ -94,6 +99,9 @@ const ProjectStats = ({ projects }) => {
                 title={item.title}
                 value={item.value}
                 suffix={item.suffix}
+                precision={
+                  item.suffix === "%" ? 1 : 0
+                }
               />
             </div>
 
@@ -102,9 +110,7 @@ const ProjectStats = ({ projects }) => {
                 percent={Number(item.value)}
                 showInfo={false}
                 strokeColor={item.color}
-                style={{
-                  marginTop: 18,
-                }}
+                style={{ marginTop: 24 }}
               />
             )}
           </Card>

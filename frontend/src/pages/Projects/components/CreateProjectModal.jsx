@@ -1,41 +1,45 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useMemo } from "react";
 import {
+  Modal,
   Form,
   Input,
-  Modal,
   Select,
-  Space,
-  Tag,
+  message,
 } from "antd";
 
 const { TextArea } = Input;
-const { Option } = Select;
 
-const providerModels = {
-  OpenAI: ["GPT-4.1", "GPT-4o", "GPT-4.1 Mini"],
+const MODEL_OPTIONS = {
   Google: [
     "Gemini 2.5 Flash",
     "Gemini 2.5 Pro",
   ],
-  Anthropic: [
-    "Claude 4 Sonnet",
-    "Claude 4 Opus",
+  OpenAI: [
+    "GPT-4.1",
+    "GPT-4o",
+    "o4-mini",
   ],
-  "Azure OpenAI": ["GPT-4o"],
+  Anthropic: [
+    "Claude Sonnet 4",
+    "Claude Opus 4",
+  ],
+  Azure: [
+    "GPT-4.1",
+    "GPT-4o",
+  ],
+  Meta: [
+    "Llama 4 Scout",
+    "Llama 4 Maverick",
+  ],
 };
 
-const tagOptions = [
-  "LLM",
+const PROJECT_TYPES = [
+  "LLM Evaluation",
   "RAG",
-  "Classification",
   "Chatbot",
-  "Finance",
-  "Healthcare",
-  "Legal",
-  "Analytics",
-  "SQL",
-  "Enterprise",
+  "AI Agent",
+  "Classification",
+  "Custom",
 ];
 
 const CreateProjectModal = ({
@@ -50,143 +54,207 @@ const CreateProjectModal = ({
     form
   );
 
-  const handleFinish = (values) => {
-    onCreate(values);
-    form.resetFields();
+  const modelOptions = useMemo(() => {
+    if (!provider) return [];
+    return MODEL_OPTIONS[provider] || [];
+  }, [provider]);
+
+  useEffect(() => {
+    if (open) {
+      form.resetFields();
+
+      form.setFieldsValue({
+        provider: "Google",
+        model: "Gemini 2.5 Flash",
+        projectType: "LLM Evaluation",
+        tags: ["evaluation"],
+      });
+    }
+  }, [open, form]);
+
+  useEffect(() => {
+    if (!provider) return;
+
+    form.setFieldValue(
+      "model",
+      MODEL_OPTIONS[provider]?.[0]
+    );
+  }, [provider, form]);
+
+  const handleSubmit = async () => {
+    try {
+      const values =
+        await form.validateFields();
+
+      const newProject = {
+        id: Date.now(),
+
+        name: values.projectName,
+
+        description:
+          values.description ||
+          "No description provided.",
+
+        provider: values.provider,
+
+        model: values.model,
+
+        projectType:
+          values.projectType,
+
+        tags: values.tags || [],
+
+        status: "Active",
+
+        healthScore: 100,
+
+        averageAccuracy: 100,
+
+        evaluations: 0,
+
+        createdAt:
+          new Date().toISOString(),
+      };
+
+      onCreate(newProject);
+
+      message.success(
+        "Project created successfully!"
+      );
+
+      form.resetFields();
+    } catch {
+      // Validation handled by Ant Design
+    }
   };
 
   return (
     <Modal
-      title="Create Project"
       open={open}
+      title="Create New Project"
+      centered
+      width={720}
       okText="Create Project"
-      width={700}
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={handleSubmit}
       destroyOnClose
-      onCancel={() => {
-        form.resetFields();
-        onCancel();
-      }}
-      onOk={() => form.submit()}
     >
       <Form
         layout="vertical"
         form={form}
-        onFinish={handleFinish}
       >
         <Form.Item
           label="Project Name"
-          name="name"
+          name="projectName"
           rules={[
             {
               required: true,
               message:
-                "Please enter project name.",
+                "Please enter a project name.",
             },
           ]}
         >
           <Input
-            placeholder="Customer Support Assistant"
+            size="large"
+            placeholder="Customer Support Evaluation"
           />
         </Form.Item>
 
         <Form.Item
           label="Description"
           name="description"
-          rules={[
-            {
-              required: true,
-              message:
-                "Please enter description.",
-            },
-          ]}
         >
           <TextArea
             rows={4}
-            placeholder="Brief description of the project..."
+            placeholder="Briefly describe the purpose of this project..."
           />
         </Form.Item>
 
-        <Space
-          style={{ width: "100%" }}
-          size="large"
+        <Form.Item
+          label="AI Provider"
+          name="provider"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <Form.Item
-            label="Provider"
-            name="provider"
-            style={{ flex: 1 }}
-            rules={[
+          <Select
+            size="large"
+            options={[
               {
-                required: true,
+                value: "Google",
+                label: "Google",
+              },
+              {
+                value: "OpenAI",
+                label: "OpenAI",
+              },
+              {
+                value: "Anthropic",
+                label: "Anthropic",
+              },
+              {
+                value: "Azure",
+                label: "Azure",
+              },
+              {
+                value: "Meta",
+                label: "Meta",
               },
             ]}
-          >
-            <Select
-              placeholder="Select Provider"
-            >
-              {Object.keys(providerModels).map(
-                (item) => (
-                  <Option
-                    key={item}
-                    value={item}
-                  >
-                    {item}
-                  </Option>
-                )
-              )}
-            </Select>
-          </Form.Item>
+          />
+        </Form.Item>
 
-          <Form.Item
-            label="Model"
-            name="model"
-            style={{ flex: 1 }}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Select placeholder="Select Model">
-              {(providerModels[provider] ||
-                []).map((model) => (
-                <Option
-                  key={model}
-                  value={model}
-                >
-                  {model}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Space>
+        <Form.Item
+          label="Model"
+          name="model"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+            size="large"
+            options={modelOptions.map(
+              (model) => ({
+                value: model,
+                label: model,
+              })
+            )}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Project Type"
+          name="projectType"
+        >
+          <Select
+            size="large"
+            options={PROJECT_TYPES.map(
+              (type) => ({
+                value: type,
+                label: type,
+              })
+            )}
+          />
+        </Form.Item>
 
         <Form.Item
           label="Tags"
           name="tags"
         >
           <Select
-            mode="multiple"
-            placeholder="Select tags"
-          >
-            {tagOptions.map((tag) => (
-              <Option
-                key={tag}
-                value={tag}
-              >
-                <Tag color="blue">{tag}</Tag>
-              </Option>
-            ))}
-          </Select>
+            mode="tags"
+            size="large"
+            placeholder="Add tags"
+          />
         </Form.Item>
       </Form>
     </Modal>
   );
-};
-
-CreateProjectModal.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onCreate: PropTypes.func.isRequired,
 };
 
 export default CreateProjectModal;
