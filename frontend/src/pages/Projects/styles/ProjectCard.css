@@ -1,0 +1,413 @@
+/* =====================================================
+   PROJECT CARD V2
+===================================================== */
+
+.project-card-v2 {
+  height: 100%;
+  border-radius: 20px !important;
+  overflow: hidden;
+  cursor: pointer;
+
+  background: linear-gradient(
+    180deg,
+    #172033 0%,
+    #101827 100%
+  ) !important;
+
+  border: 1px solid rgba(59, 130, 246, .12) !important;
+
+  transition: all .35s ease;
+
+  box-shadow:
+      0 12px 30px rgba(0,0,0,.25),
+      0 0 0 1px rgba(255,255,255,.02);
+}
+
+.project-card-v2:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#1677ff !important;
+
+    box-shadow:
+        0 24px 48px rgba(0,0,0,.35),
+        0 0 24px rgba(22,119,255,.18);
+
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.project-card-v2 .ant-card-body{
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.project-card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+}
+
+.project-title-section{
+
+    width:100%;
+
+}
+
+.project-icon{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #1677ff,
+        #5b8cff
+    );
+
+    box-shadow:
+        0 10px 20px rgba(22,119,255,.35);
+
+}
+
+.project-title{
+
+    margin-bottom:8px !important;
+
+    color:white !important;
+
+    font-weight:700 !important;
+
+}
+
+.status-tag{
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    padding:4px 12px;
+
+}
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.project-description{
+
+    margin-top:20px;
+
+    margin-bottom:22px !important;
+
+    color:#9ca3af !important;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+}
+
+/* =====================================================
+   TAGS
+===================================================== */
+
+.provider-tags{
+
+    margin-bottom:24px;
+
+}
+
+.provider-tags .ant-tag{
+
+    border-radius:999px;
+
+    padding:5px 14px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+/* =====================================================
+   HEALTH
+===================================================== */
+
+.health-section{
+
+    margin-bottom:26px;
+
+}
+
+.health-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+
+}
+
+.health-header .ant-typography{
+
+    color:#f8fafc;
+
+}
+
+.health-section .ant-progress{
+
+    margin:0;
+
+}
+
+.health-section .ant-progress-bg{
+
+    border-radius:999px;
+
+}
+
+.health-section .ant-progress-inner{
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:999px;
+
+}
+
+/* =====================================================
+   KPI ROW
+===================================================== */
+
+.metrics-row{
+
+    margin-bottom:28px;
+
+}
+
+.metric-box{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:14px;
+
+    text-align:center;
+
+    padding:16px 8px;
+
+    transition:.25s;
+
+}
+
+.metric-box:hover{
+
+    background:rgba(22,119,255,.08);
+
+    border-color:rgba(22,119,255,.25);
+
+}
+
+.metric-box .ant-typography{
+
+    display:block;
+
+}
+
+.metric-box .ant-typography-secondary{
+
+    color:#94a3b8 !important;
+
+    font-size:12px;
+
+}
+
+.metric-box h5{
+
+    margin-top:8px !important;
+
+    margin-bottom:0 !important;
+
+    color:white !important;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.project-card-footer{
+
+    margin-top:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    gap:18px;
+
+}
+
+.footer-meta{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.footer-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#94a3b8;
+
+}
+
+.footer-item svg{
+
+    font-size:16px;
+
+    color:#1677ff;
+
+}
+
+.footer-label{
+
+    display:block;
+
+    font-size:12px;
+
+}
+
+.footer-value{
+
+    display:block;
+
+    color:white !important;
+
+    font-weight:500;
+
+}
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.open-project-btn{
+
+    border-radius:12px;
+
+    height:44px;
+
+    padding:0 20px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.open-project-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:992px){
+
+.project-card-footer{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.open-project-btn{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.metrics-row .ant-col{
+
+margin-bottom:12px;
+
+}
+
+.project-icon{
+
+width:46px;
+
+height:46px;
+
+font-size:20px;
+
+}
+
+.project-title{
+
+font-size:18px !important;
+
+}
+
+.project-description{
+
+font-size:13px;
+
+}
+
+}

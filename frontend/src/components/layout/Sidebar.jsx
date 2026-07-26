@@ -7,6 +7,7 @@ import {
   Settings,
   ShieldCheck,
   CircleDot,
+  FolderKanban,
 } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
@@ -30,6 +31,11 @@ const navigation = [
   {
     title: "OPERATIONS",
     items: [
+      {
+        to: "/projects",
+        icon: FolderKanban,
+        label: "Projects",
+      },
       {
         to: "/evaluations",
         icon: PlayCircle,
