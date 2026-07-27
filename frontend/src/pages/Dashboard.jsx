@@ -6,7 +6,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import PageHeader from "../components/common/PageHeader";
+import PageHeader from "../components/common/PageHeader/PageHeader";
 import StatCard from "../components/ui/StatCard";
 import AccuracyChart from "../components/charts/AccuracyChart";
 import HealthChart from "../components/charts/HealthChart";
@@ -104,8 +104,14 @@ export default function Dashboard() {
         <PageHeader
           title="Dashboard"
           subtitle="Monitor your LLM evaluation metrics, regression history and model health."
-          buttonText="Run Evaluation"
-          onButtonClick={() => setModalOpen(true)}
+          actions={
+            <button
+              onClick={() => setModalOpen(true)}
+              className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700"
+            >
+            Run Evaluation
+            </button>
+          }
         />
 
         {/* ===================== System Overview ===================== */}
