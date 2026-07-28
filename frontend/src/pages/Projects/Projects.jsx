@@ -6,20 +6,15 @@ import {
   Card,
   Typography,
   Button,
-  Space,
 } from "antd";
 
-import {
-  PlusOutlined,
-  FolderOpenOutlined,
-} from "@ant-design/icons";
-
+import { PlusOutlined } from "@ant-design/icons";
 import ProjectStats from "./components/ProjectStats";
 import ProjectFilters from "./components/ProjectFilters";
 import ProjectCard from "./components/ProjectCard";
 import CreateProjectModal from "./components/CreateProjectModal";
 import ProjectSkeleton from "./components/ProjectSkeleton";
-
+import PageHeader from "../../components/common/PageHeader/PageHeader";
 import { mockProjects } from "./mockProjects";
 
 import "./styles/Projects.css";
@@ -142,49 +137,23 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      {/* Hero */}
+      {/* Header */}
 
-      <Card className="projects-hero">
-        <div>
-          <Space align="center" size={12}>
-            <FolderOpenOutlined
-              style={{
-                fontSize: 32,
-                color: "#1677ff",
-              }}
-            />
+<PageHeader
+  title="Projects"
+  subtitle="Organize AI applications, monitor model performance, manage datasets, prompt versions and evaluation pipelines from one centralized workspace."
+  actions={
+    <Button
+      type="primary"
+      size="large"
+      icon={<PlusOutlined />}
+      onClick={openCreateModal}
+    >
+      Create Project
+    </Button>
+  }
+/>
 
-            <Title
-              level={2}
-              style={{ margin: 0 }}
-            >
-              Projects
-            </Title>
-          </Space>
-
-          <Paragraph
-            style={{
-              marginTop: 12,
-              marginBottom: 0,
-            }}
-          >
-            Organize AI applications, monitor model
-            performance, manage datasets, prompt
-            versions and evaluation pipelines from one
-            centralized workspace.
-          </Paragraph>
-        </div>
-
-        <Button
-          type="primary"
-          size="large"
-          icon={<PlusOutlined />}
-          className="projects-create-btn"
-          onClick={openCreateModal}
-        >
-          Create Project
-        </Button>
-      </Card>
 
       {/* Statistics */}
 

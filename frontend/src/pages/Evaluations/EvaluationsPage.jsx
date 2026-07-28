@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Empty } from "antd";
 
-import SectionHeader from "../../components/common/SectionHeader";
+import PageHeader from "../../components/common/PageHeader/PageHeader";
 import EvaluationStats from "./components/EvaluationStats";
 import EvaluationFilters from "./components/EvaluationFilters";
 import EvaluationCard from "./components/EvaluationCard";
@@ -24,10 +24,10 @@ const EvaluationsPage = () => {
 
   return (
     <>
-      <SectionHeader
+      <PageHeader
         title="Evaluations"
         subtitle="Manage, monitor and analyze all AI model evaluation runs from a single workspace."
-    />
+      />
 
       <EvaluationStats
         totalEvaluations={statistics.totalEvaluations}

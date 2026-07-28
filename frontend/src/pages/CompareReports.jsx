@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ComparisonSelector from "../components/report/ComparisonSelector";
 import ComparisonSummary from "../components/report/ComparisonSummary";
 import ComparisonTable from "../components/report/ComparisonTable";
+import PageHeader from "../components/common/PageHeader/PageHeader";
 
 import {
   getAllReports,
@@ -95,18 +96,10 @@ export default function CompareReports() {
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-white">
-          Compare Reports
-        </h1>
-
-        <p className="mt-2 text-slate-400">
-          Compare two evaluation runs to identify
-          regressions, improvements, and deployment
-          readiness.
-        </p>
-      </div>
+      <PageHeader
+        title="Compare Reports"
+        subtitle="Compare two evaluation runs to identify regressions, improvements, and deployment readiness."
+      />
 
       {/* Report Selector */}
       <ComparisonSelector

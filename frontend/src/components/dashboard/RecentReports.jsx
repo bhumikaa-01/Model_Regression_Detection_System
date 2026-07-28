@@ -9,6 +9,7 @@ import {
   FolderOpen,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Card from "../ui/Card";
 
@@ -28,10 +29,7 @@ export default function RecentReports({ reports = [] }) {
   };
 
   const formatExecutionTime = (seconds = 0) => {
-    if (seconds < 1) {
-      return `${Math.round(seconds * 1000)} ms`;
-    }
-
+    if (seconds < 1) return `${Math.round(seconds * 1000)} ms`;
     return `${seconds.toFixed(2)} s`;
   };
 
@@ -41,194 +39,268 @@ export default function RecentReports({ reports = [] }) {
     return "text-red-400";
   };
 
-  if (reports.length === 0) {
+  if (!reports.length) {
     return (
-      <Card className="flex h-full flex-col items-center justify-center py-16 text-center">
+      <Card className="flex h-full flex-col items-center justify-center rounded-3xl border border-[var(--border)] bg-[var(--card-bg)] py-20">
         <FolderOpen
-          size={48}
-          className="mb-4 text-slate-600"
+          size={54}
+          className="mb-5 text-violet-400"
         />
 
-        <h3 className="text-lg font-semibold text-white">
+        <h3 className="text-xl font-semibold text-white">
           No Reports Available
         </h3>
 
-        <p className="mt-2 max-w-sm text-sm text-slate-400">
-          Run your first evaluation to generate a report. Your latest
-          evaluation runs will appear here.
+        <p className="mt-3 max-w-sm text-center text-sm text-[var(--text-secondary)]">
+          Run your first evaluation to generate reports and monitor model quality over time.
         </p>
       </Card>
     );
   }
 
   return (
-    <Card className="h-full">
-      {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-lg font-semibold text-white">
-          Recent Reports
-        </h2>
+    <Card className="group relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--card-bg)]">
 
-        <p className="mt-1 text-sm text-slate-400">
-          Latest evaluation runs
-        </p>
-      </div>
+      {/* Accent */}
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500" />
 
-      {/* Reports */}
-      <div className="space-y-4">
-        {reports.map((report) => {
-          const healthy =
-            report.health_status?.includes("Improved") ||
-            report.deployment_recommendation?.includes("Safe");
+      {/* Glow */}
+      <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-violet-500/10 blur-3xl" />
 
-          return (
-            <div
-              key={report.report_id}
-              role="button"
-              tabIndex={0}
-              aria-label={`View Report ${report.report_id}`}
-              onClick={() =>
-                navigate(`/reports/${report.report_id}`)
-              }
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  navigate(`/reports/${report.report_id}`);
+      <div className="relative">
+
+        {/* Header */}
+
+        <div className="mb-8 flex items-center justify-between">
+
+          <div>
+            <h2 className="text-xl font-bold text-white">
+              Recent Reports
+            </h2>
+
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              Latest evaluation runs
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white/5 px-4 py-2 text-sm text-[var(--text-secondary)]">
+            {reports.length} Reports
+          </div>
+
+        </div>
+
+        {/* Reports */}
+
+        <div className="space-y-5">
+
+          {reports.map((report) => {
+
+            const healthy =
+              report.health_status?.includes("Improved") ||
+              report.deployment_recommendation?.includes("Safe");
+
+            return (
+
+              <motion.div
+                key={report.report_id}
+                whileHover={{
+                  y: -5,
+                }}
+                transition={{
+                  duration: 0.2,
+                }}
+                role="button"
+                tabIndex={0}
+                onClick={() =>
+                  navigate(`/reports/${report.report_id}`)
                 }
-              }}
-              className={`group cursor-pointer rounded-2xl border border-slate-800 border-l-4 bg-slate-900/40 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-slate-900 hover:shadow-xl hover:shadow-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                healthy
-                  ? "border-l-emerald-500"
-                  : "border-l-red-500"
-              }`}
-            >
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                {/* Left */}
-                <div className="flex-1">
-                  {/* Title */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      Report #{report.report_id}
-                    </h3>
+                onKeyDown={(e) => {
+                  if (
+                    e.key === "Enter" ||
+                    e.key === " "
+                  ) {
+                    navigate(
+                      `/reports/${report.report_id}`
+                    );
+                  }
+                }}
+                className={`
+                group/report
+                cursor-pointer
+                rounded-2xl
+                border
+                border-[var(--border)]
+                bg-[var(--bg-secondary)]
+                p-6
+                transition-all
+                duration-300
+                hover:border-violet-500/40
+                hover:shadow-xl
+                hover:shadow-violet-600/10
+                `}
+              >
 
-                    <div className="mt-2 flex items-center gap-2 text-sm text-slate-500">
-                      <CalendarDays size={14} />
-                      {formatDateTime(report.timestamp)}
-                    </div>
-                  </div>
+                <div className="flex flex-col gap-8 xl:flex-row xl:justify-between">
 
-                  {/* Metrics */}
-                  <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4">
-                    {/* Accuracy */}
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500">
-                        Accuracy
-                      </p>
+                  {/* LEFT */}
 
-                      <div className="mt-2 flex items-center gap-2">
-                        <Target
-                          size={16}
-                          className={getAccuracyColor(
-                            report.current_accuracy
-                          )}
-                        />
+                  <div className="flex-1">
 
-                        <span
-                          className={`text-lg font-bold ${getAccuracyColor(
-                            report.current_accuracy
-                          )}`}
-                        >
-                          {(report.current_accuracy ?? 0).toFixed(2)}%
-                        </span>
+                    <div className="flex items-center justify-between">
+
+                      <div>
+
+                        <h3 className="text-lg font-semibold text-white">
+                          Report #{report.report_id}
+                        </h3>
+
+                        <div className="mt-2 flex items-center gap-2 text-sm text-[var(--text-muted)]">
+                          <CalendarDays size={14} />
+                          {formatDateTime(report.timestamp)}
+                        </div>
+
                       </div>
-                    </div>
 
-                    {/* Health */}
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500">
-                        Health
-                      </p>
+                      <div
+                        className={`rounded-full px-4 py-2 text-xs font-semibold ${
+                          healthy
+                            ? "bg-emerald-500/15 text-emerald-300"
+                            : "bg-red-500/15 text-red-300"
+                        }`}
+                      >
+                        {healthy ? (
+                          <CheckCircle2
+                            size={14}
+                            className="mr-1 inline"
+                          />
+                        ) : (
+                          <AlertTriangle
+                            size={14}
+                            className="mr-1 inline"
+                          />
+                        )}
 
-                      <div className="mt-2">
-                        <span
-                          className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
-                            healthy
-                              ? "bg-emerald-500/10 text-emerald-400"
-                              : "bg-red-500/10 text-red-400"
-                          }`}
-                        >
-                          {healthy ? (
-                            <CheckCircle2 size={14} />
-                          ) : (
-                            <AlertTriangle size={14} />
-                          )}
-
-                          {(report.health_status || "Unknown").replace(
+                        {(report.health_status || "")
+                          .replace(
                             /^🟢\s*|^🟡\s*|^🔴\s*/,
                             ""
                           )}
-                        </span>
                       </div>
+
                     </div>
 
-                    {/* Execution */}
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500">
-                        Execution
-                      </p>
+                    {/* Metrics */}
 
-                      <div className="mt-2 flex items-center gap-2">
-                        <Clock3
-                          size={16}
-                          className="text-cyan-400"
-                        />
+                    <div className="mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4">
 
-                        <span className="font-semibold text-white">
-                          {formatExecutionTime(
-                            report.execution_time_seconds
-                          )}
-                        </span>
-                      </div>
+                      <Metric
+                        label="Accuracy"
+                        icon={
+                          <Target
+                            size={16}
+                            className={getAccuracyColor(
+                              report.current_accuracy
+                            )}
+                          />
+                        }
+                        value={`${(
+                          report.current_accuracy ?? 0
+                        ).toFixed(2)}%`}
+                        valueClass={getAccuracyColor(
+                          report.current_accuracy
+                        )}
+                      />
+
+                      <Metric
+                        label="Execution"
+                        icon={
+                          <Clock3
+                            size={16}
+                            className="text-cyan-400"
+                          />
+                        }
+                        value={formatExecutionTime(
+                          report.execution_time_seconds
+                        )}
+                      />
+
+                      <Metric
+                        label="Test Cases"
+                        icon={
+                          <FileText
+                            size={16}
+                            className="text-violet-400"
+                          />
+                        }
+                        value={
+                          report.total_test_cases ?? 0
+                        }
+                      />
+
+                      <Metric
+                        label="Deployment"
+                        value={
+                          report.deployment_recommendation
+                            ?.replace(/^✅\s*/, "") ??
+                          "-"
+                        }
+                      />
+
                     </div>
 
-                    {/* Test Cases */}
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500">
-                        Test Cases
-                      </p>
-
-                      <div className="mt-2 flex items-center gap-2">
-                        <FileText
-                          size={16}
-                          className="text-violet-400"
-                        />
-
-                        <span className="font-semibold text-white">
-                          {report.total_test_cases ?? 0}
-                        </span>
-                      </div>
-                    </div>
                   </div>
-                </div>
 
-                {/* CTA */}
-                <div className="flex items-center self-end lg:self-center">
-                  <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-all duration-300 group-hover:bg-slate-800 group-hover:text-white">
-                    <span className="hidden md:block">
+                  {/* CTA */}
+
+                  <div className="flex items-center">
+
+                    <div className="flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white/5 px-4 py-3 text-sm font-medium text-[var(--text-secondary)] transition-all duration-300 group-hover/report:border-violet-500/40 group-hover/report:bg-violet-500/10 group-hover/report:text-white">
+
                       View Details
-                    </span>
 
-                    <ArrowRight
-                      size={18}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
+                      <ArrowRight
+                        size={17}
+                        className="transition-transform duration-300 group-hover/report:translate-x-1"
+                      />
+
+                    </div>
+
                   </div>
+
                 </div>
-              </div>
-            </div>
-          );
-        })}
+
+              </motion.div>
+
+            );
+          })}
+
+        </div>
+
       </div>
+
     </Card>
+  );
+}
+
+function Metric({
+  label,
+  value,
+  icon,
+  valueClass = "text-white",
+}) {
+  return (
+    <div>
+      <p className="text-xs uppercase tracking-wider text-[var(--text-muted)]">
+        {label}
+      </p>
+
+      <div className="mt-3 flex items-center gap-2">
+        {icon}
+
+        <span className={`font-semibold ${valueClass}`}>
+          {value}
+        </span>
+      </div>
+    </div>
   );
 }
