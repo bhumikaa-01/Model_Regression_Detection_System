@@ -1,42 +1,123 @@
-.info-item {
-  width: 100%;
+/* =====================================================
+   INFO ITEM
+===================================================== */
+
+.info-item{
+
+    width:100%;
+
+    transition:var(--transition);
+
 }
 
-.info-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #1677ff;
-  min-width: 20px;
+/* ===================================================== */
+
+.info-item-icon{
+
+    width:42px;
+
+    height:42px;
+
+    min-width:42px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.15),
+            rgba(168,85,247,.08)
+        );
+
+    border:1px solid rgba(139,92,246,.20);
+
+    color:var(--primary);
+
+    font-size:18px;
+
+    transition:var(--transition);
+
 }
 
-.info-item-content {
-  flex: 1;
-  min-width: 0;
+.info-item:hover .info-item-icon{
+
+    transform:translateY(-2px);
+
+    border-color:rgba(139,92,246,.40);
+
+    box-shadow:
+        0 10px 25px rgba(139,92,246,.12);
+
 }
 
-.info-item-label {
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.45);
-  margin-bottom: 2px;
+/* ===================================================== */
+
+.info-item-content{
+
+    flex:1;
+
+    min-width:0;
+
 }
 
-.info-item-value {
-  font-size: 15px;
-  word-break: break-word;
+/* ===================================================== */
+
+.info-item-label{
+
+    font-size:12px !important;
+
+    color:var(--text-muted) !important;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+    margin-bottom:6px;
+
+    font-weight:600;
+
 }
 
-.info-item-value .ant-typography-copy {
-  margin-left: 6px;
+/* ===================================================== */
+
+.info-item-value{
+
+    color:var(--text-primary)!important;
+
+    font-size:15px!important;
+
+    font-weight:600!important;
+
+    line-height:1.4;
+
 }
 
-@media (max-width: 768px) {
-  .info-item {
-    width: 100%;
-  }
+/* ===================================================== */
 
-  .info-item-value {
-    font-size: 14px;
-  }
+.info-item:hover .info-item-value{
+
+    color:white!important;
+
+}
+
+/* ===================================================== */
+
+.info-item-value .ant-typography-copy{
+
+    color:var(--primary);
+
+}
+
+/* ===================================================== */
+
+.info-item .ant-typography{
+
+    margin:0;
+
 }

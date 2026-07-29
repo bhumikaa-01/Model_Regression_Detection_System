@@ -1,0 +1,25 @@
+/* =====================================================
+   EVALUATION STATS
+===================================================== */
+
+.evaluation-stats{
+
+    margin-bottom:32px;
+
+}
+
+/* Give the cards breathing room */
+
+.evaluation-stats .metric-card{
+
+    height:100%;
+
+}
+
+/* Slight lift animation */
+
+.evaluation-stats .metric-card:hover{
+
+    transform:translateY(-4px);
+
+}

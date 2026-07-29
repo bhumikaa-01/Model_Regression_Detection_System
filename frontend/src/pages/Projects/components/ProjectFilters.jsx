@@ -3,8 +3,6 @@ import {
   Card,
   Input,
   Select,
-  Button,
-  Space,
 } from "antd";
 
 import {
@@ -12,7 +10,10 @@ import {
   PlusOutlined,
   FilterOutlined,
   SortAscendingOutlined,
+  RobotOutlined,
 } from "@ant-design/icons";
+
+import Button from "../../../components/ui/Button";
 
 const { Option } = Select;
 
@@ -35,46 +36,75 @@ const ProjectFilters = ({
         <Input
           allowClear
           size="large"
-          placeholder="Search projects..."
+          className="projects-search"
+          placeholder="Search by project, model or provider..."
           prefix={<SearchOutlined />}
           value={searchText}
           onChange={(e) =>
             onSearchChange(e.target.value)
           }
-          style={{ width: 320 }}
         />
 
         <Select
           size="large"
           value={statusFilter}
-          style={{ width: 170 }}
+          className="projects-select"
           suffixIcon={<FilterOutlined />}
           onChange={onStatusChange}
         >
-          <Option value="All">All Status</Option>
-          <Option value="Active">Active</Option>
-          <Option value="Inactive">Inactive</Option>
-          <Option value="Archived">Archived</Option>
+          <Option value="All">
+            All Status
+          </Option>
+
+          <Option value="Active">
+            Active
+          </Option>
+
+          <Option value="Inactive">
+            Inactive
+          </Option>
+
+          <Option value="Archived">
+            Archived
+          </Option>
         </Select>
 
         <Select
           size="large"
           value={providerFilter}
-          style={{ width: 180 }}
+          className="projects-select"
+          suffixIcon={<RobotOutlined />}
           onChange={onProviderChange}
         >
-          <Option value="All">All Providers</Option>
-          <Option value="Google">Google</Option>
-          <Option value="OpenAI">OpenAI</Option>
-          <Option value="Anthropic">Anthropic</Option>
-          <Option value="Azure">Azure</Option>
-          <Option value="Meta">Meta</Option>
+          <Option value="All">
+            All Providers
+          </Option>
+
+          <Option value="Google">
+            Google
+          </Option>
+
+          <Option value="OpenAI">
+            OpenAI
+          </Option>
+
+          <Option value="Anthropic">
+            Anthropic
+          </Option>
+
+          <Option value="Azure">
+            Azure
+          </Option>
+
+          <Option value="Meta">
+            Meta
+          </Option>
         </Select>
 
         <Select
           size="large"
           value={sortBy}
-          style={{ width: 190 }}
+          className="projects-select"
           suffixIcon={<SortAscendingOutlined />}
           onChange={onSortChange}
         >
@@ -104,9 +134,7 @@ const ProjectFilters = ({
       <div className="projects-toolbar-right">
 
         <Button
-          type="primary"
-          size="large"
-          icon={<PlusOutlined />}
+          leftIcon={<PlusOutlined />}
           onClick={onCreateProject}
         >
           Create Project

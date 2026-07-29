@@ -1,192 +1,76 @@
-.projects-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  animation: fadeIn 0.35s ease;
-}
-
 /* =====================================================
-   HERO
+   CREATE PROJECT MODAL
 ===================================================== */
 
-.projects-hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  padding: 30px;
-  border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(37, 99, 235, 0.15),
-    rgba(15, 23, 42, 0.95)
-  );
-  border: 1px solid rgba(59, 130, 246, 0.15);
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.projects-hero h1,
-.projects-hero .ant-typography {
-  color: #f8fafc;
-}
-
-.projects-hero p {
-  color: #94a3b8;
-  margin-top: 8px;
-  max-width: 720px;
-}
-
-.projects-create-btn {
-  height: 48px;
-  border-radius: 12px;
-  padding: 0 24px;
-  font-weight: 600;
-}
-
-/* =====================================================
-   PROJECT STATS
-===================================================== */
-
-.projects-stats {
-  margin: 6px 0;
-}
-
-.project-stat-card {
-  height: 100%;
-}
-
-/* =====================================================
-   TOOLBAR
-===================================================== */
-
-.projects-toolbar {
-  border-radius: 18px !important;
+.create-project-modal .ant-modal-content {
   background: linear-gradient(
     180deg,
-    rgba(30, 41, 59, 0.95),
-    rgba(15, 23, 42, 0.95)
+    var(--bg-secondary),
+    var(--bg-primary)
   ) !important;
-  border: 1px solid rgba(59, 130, 246, 0.12) !important;
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.45),
+    0 0 40px rgba(139,92,246,.08);
 }
 
-.projects-toolbar .ant-card-body {
+.create-project-modal .ant-modal-header {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 18px;
+}
+
+.create-project-modal .ant-modal-title {
+  color: var(--text-primary);
+}
+
+.modal-title {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.projects-toolbar-left,
-.projects-toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+.modal-title svg {
+  color: var(--primary);
+  font-size: 22px;
 }
 
-.projects-toolbar .ant-input,
-.projects-toolbar .ant-select-selector {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 10px !important;
-}
-
-.projects-toolbar .ant-input:hover,
-.projects-toolbar .ant-select-selector:hover {
-  border-color: #1677ff !important;
-}
-
-.projects-toolbar
-  .ant-select-focused
-  .ant-select-selector,
-.projects-toolbar .ant-input:focus {
-  border-color: #1677ff !important;
-  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15) !important;
-}
-
-.projects-toolbar .ant-btn {
-  height: 42px;
-  padding: 0 22px;
-  border-radius: 10px;
+.create-project-form .ant-form-item-label label {
+  color: var(--text-primary);
   font-weight: 600;
 }
 
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.projects-empty {
-  padding: 80px;
-  text-align: center;
-  border-radius: 18px;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px dashed rgba(59, 130, 246, 0.2);
+.create-project-form .ant-input,
+.create-project-form .ant-input-affix-wrapper,
+.create-project-form .ant-select-selector,
+.create-project-form textarea {
+  background: rgba(255,255,255,.03) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  color: var(--text-primary) !important;
 }
 
-/* =====================================================
-   COMMON
-===================================================== */
+.create-project-form .ant-input-prefix {
+  color: var(--primary);
+}
 
-.ant-input,
+.create-project-form .ant-input:focus,
+.create-project-form .ant-input-affix-wrapper-focused,
+.create-project-form
+.ant-select-focused
 .ant-select-selector {
-  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(139,92,246,.15) !important;
 }
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 992px) {
-
-  .projects-toolbar .ant-card-body {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .projects-toolbar-left,
-  .projects-toolbar-right {
-    width: 100%;
-  }
-
-  .projects-toolbar-left .ant-input,
-  .projects-toolbar-left .ant-select {
-    width: 100% !important;
-  }
-
-  .projects-toolbar-right .ant-btn {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .projects-hero {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
-  }
-
-  .projects-create-btn {
-    width: 100%;
-  }
-}
-
-/* =====================================================
-   ANIMATION
-===================================================== */
-
-@keyframes fadeIn {
-
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 32px;
 }

@@ -1,0 +1,103 @@
+/* =====================================================
+   STATUS BADGE
+===================================================== */
+
+.status-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    border:1px solid transparent;
+
+    transition:var(--transition);
+
+}
+
+.status-badge svg{
+
+    font-size:13px;
+
+}
+
+/* ================= SUCCESS ================= */
+
+.status-success{
+
+    color:#4ADE80;
+
+    background:rgba(34,197,94,.12);
+
+    border-color:rgba(34,197,94,.25);
+
+}
+
+/* ================= RUNNING ================= */
+
+.status-running{
+
+    color:#60A5FA;
+
+    background:rgba(59,130,246,.12);
+
+    border-color:rgba(59,130,246,.25);
+
+}
+
+/* ================= WARNING ================= */
+
+.status-warning{
+
+    color:#FBBF24;
+
+    background:rgba(245,158,11,.12);
+
+    border-color:rgba(245,158,11,.25);
+
+}
+
+/* ================= QUEUED ================= */
+
+.status-queued{
+
+    color:#A78BFA;
+
+    background:rgba(139,92,246,.12);
+
+    border-color:rgba(139,92,246,.25);
+
+}
+
+/* ================= DANGER ================= */
+
+.status-danger{
+
+    color:#FB7185;
+
+    background:rgba(244,63,94,.12);
+
+    border-color:rgba(244,63,94,.25);
+
+}
+
+/* ================= DEFAULT ================= */
+
+.status-default{
+
+    color:var(--text-secondary);
+
+    background:rgba(255,255,255,.05);
+
+    border-color:var(--border);
+
+}

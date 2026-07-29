@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+
 import "./styles/SearchBar.css";
 
 const SearchBar = ({
@@ -29,19 +30,20 @@ const SearchBar = ({
   };
 
   return (
-    <Input
-      size="large"
-      className={`search-bar ${className}`}
-      prefix={<SearchOutlined />}
-      value={value}
-      placeholder={placeholder}
-      allowClear={allowClear}
-      loading={loading}
-      disabled={disabled}
-      onChange={handleChange}
-      onKeyDown={handleKeyDown}
-      onPressEnter={() => onSearch?.(value)}
-    />
+    <div className={`search-bar-wrapper ${className}`}>
+      <Input
+        size="large"
+        className={`search-bar ${loading ? "search-loading" : ""}`}
+        prefix={<SearchOutlined className="search-icon" />}
+        value={value}
+        placeholder={placeholder}
+        allowClear={allowClear}
+        disabled={disabled}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onPressEnter={() => onSearch?.(value)}
+      />
+    </div>
   );
 };
 

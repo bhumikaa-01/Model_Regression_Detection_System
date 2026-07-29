@@ -1,40 +1,213 @@
+/* =====================================================
+   EVALUATION CARD
+===================================================== */
+
 .evaluation-card {
-    border-radius: 16px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.25s ease;
-    height: 100%;
-    overflow: hidden;
+
+  height: 100%;
+
+  border-radius: 24px !important;
+
+  background: linear-gradient(
+      180deg,
+      var(--bg-secondary),
+      var(--bg-primary)
+  ) !important;
+
+  border: 1px solid var(--border) !important;
+
+  overflow: hidden;
+
+  transition: var(--transition);
+
+  box-shadow:
+      0 16px 40px rgba(0,0,0,.22);
+
 }
 
-.evaluation-card:hover {
-    transform: translateY(-4px);
-    border-color: #1677ff;
-    box-shadow: 0 14px 30px rgba(22, 119, 255, 0.12);
+.evaluation-card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(139,92,246,.28)!important;
+
+    box-shadow:
+        0 24px 60px rgba(0,0,0,.35),
+        0 0 30px rgba(139,92,246,.10);
+
 }
 
-.evaluation-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
+/* =====================================================
+   BODY
+===================================================== */
+
+.evaluation-card .ant-card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+    padding:26px;
+
 }
 
-.evaluation-title {
-    margin: 0 !important;
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    line-height: 1.3;
+/* =====================================================
+   HEADER
+===================================================== */
+
+.evaluation-card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    margin-bottom:28px;
+
 }
 
-.evaluation-info {
-    margin: 20px 0;
+.evaluation-title{
+
+    color:var(--text-primary)!important;
+
+    margin-bottom:6px!important;
+
+    font-size:20px!important;
+
+    font-weight:700!important;
+
 }
 
-.evaluation-footer {
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #f5f5f5;
-    display: flex;
-    justify-content: flex-end;
+.evaluation-card-header .ant-typography-secondary{
+
+    color:var(--text-muted)!important;
+
+    font-size:13px;
+
+    letter-spacing:.08em;
+
+}
+
+/* =====================================================
+   INFO GRID
+===================================================== */
+
+.evaluation-info{
+
+    margin-bottom:28px;
+
+}
+
+/* =====================================================
+   PROVIDER TAG
+===================================================== */
+
+.provider-tag{
+
+    background:
+        rgba(139,92,246,.12);
+
+    color:var(--primary)!important;
+
+    border:1px solid rgba(139,92,246,.22)!important;
+
+    border-radius:999px!important;
+
+    font-weight:600;
+
+    padding:4px 14px;
+
+}
+
+/* =====================================================
+   METRICS
+===================================================== */
+
+.metric-success{
+
+    color:var(--success);
+
+    font-weight:700;
+
+}
+
+.metric-warning{
+
+    color:var(--warning);
+
+    font-weight:700;
+
+}
+
+.metric-danger{
+
+    color:var(--danger);
+
+    font-weight:700;
+
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.evaluation-footer{
+
+    margin-top:auto;
+
+    padding-top:24px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+.evaluation-actions{
+
+    display:flex;
+
+    gap:14px;
+
+}
+
+.evaluation-actions>*{
+
+    flex:1;
+
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.evaluation-actions button{
+
+    height:46px;
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:768px){
+
+.evaluation-card-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.evaluation-actions{
+
+flex-direction:column;
+
+}
+
 }

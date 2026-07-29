@@ -1,0 +1,213 @@
+/* =====================================================
+   ANT DESIGN GLOBAL OVERRIDES
+   EvalGuard AI Design System
+===================================================== */
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.ant-card {
+
+    background: var(--card-bg) !important;
+
+    border: 1px solid var(--border) !important;
+
+    border-radius: 20px !important;
+
+    color: var(--text-primary);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.20);
+
+    transition: var(--transition);
+
+}
+
+.ant-card:hover{
+
+    border-color:rgba(139,92,246,.25)!important;
+
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.ant-input,
+.ant-input-affix-wrapper{
+
+    background:rgba(255,255,255,.03)!important;
+
+    border:1px solid var(--border)!important;
+
+    color:var(--text-primary)!important;
+
+    border-radius:14px!important;
+
+}
+
+.ant-input::placeholder{
+
+    color:var(--text-muted)!important;
+
+}
+
+.ant-input-prefix{
+
+    color:var(--primary)!important;
+
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover{
+
+    border-color:var(--primary)!important;
+
+}
+
+.ant-input:focus,
+.ant-input-affix-wrapper-focused{
+
+    border-color:var(--primary)!important;
+
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,.15)!important;
+
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+.ant-input{
+
+    resize:none;
+
+}
+
+
+/* =====================================================
+   SELECT
+===================================================== */
+
+.ant-select-selector{
+
+    background:rgba(255,255,255,.03)!important;
+
+    border:1px solid var(--border)!important;
+
+    color:white!important;
+
+    border-radius:14px!important;
+
+}
+
+.ant-select-selection-item{
+
+    color:white!important;
+
+}
+
+.ant-select-arrow{
+
+    color:var(--primary)!important;
+
+}
+
+.ant-select-focused
+.ant-select-selector{
+
+    border-color:var(--primary)!important;
+
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,.15)!important;
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.ant-modal-content{
+
+    background:
+    linear-gradient(
+        180deg,
+        var(--bg-secondary),
+        var(--bg-primary)
+    )!important;
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+}
+
+.ant-modal-header{
+
+    background:transparent!important;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.ant-modal-title{
+
+    color:white!important;
+
+}
+
+.ant-modal-close{
+
+    color:var(--text-secondary)!important;
+
+}
+
+.ant-modal-close:hover{
+
+    color:white!important;
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.ant-progress-inner{
+
+    background:
+    rgba(255,255,255,.05)!important;
+
+}
+
+
+/* =====================================================
+   TAG
+===================================================== */
+
+.ant-tag{
+
+    border-radius:999px;
+
+    border:none!important;
+
+    padding:4px 12px;
+
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.ant-divider{
+
+    border-color:var(--border);
+
+}

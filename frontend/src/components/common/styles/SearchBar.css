@@ -1,0 +1,125 @@
+/* =====================================================
+   SEARCH BAR
+===================================================== */
+
+.search-bar-wrapper{
+
+    width:100%;
+
+}
+
+.search-bar{
+
+    transition:var(--transition);
+
+}
+
+/* ===================================================== */
+
+.search-bar .ant-input-affix-wrapper{
+
+    height:50px;
+
+    border-radius:16px !important;
+
+    background:var(--bg-secondary)!important;
+
+    border:1px solid var(--border)!important;
+
+    padding:0 16px;
+
+    transition:var(--transition);
+
+    box-shadow:none;
+
+}
+
+/* ===================================================== */
+
+.search-bar .ant-input{
+
+    background:transparent!important;
+
+    color:var(--text-primary)!important;
+
+    font-size:14px;
+
+}
+
+.search-bar .ant-input::placeholder{
+
+    color:var(--text-muted)!important;
+
+}
+
+/* ===================================================== */
+
+.search-icon{
+
+    color:var(--text-muted);
+
+    font-size:16px;
+
+    transition:var(--transition);
+
+}
+
+/* ===================================================== */
+
+.search-bar:hover .ant-input-affix-wrapper{
+
+    border-color:rgba(139,92,246,.25)!important;
+
+}
+
+.search-bar:hover .search-icon{
+
+    color:var(--primary);
+
+}
+
+/* ===================================================== */
+
+.search-bar.ant-input-affix-wrapper-focused,
+.search-bar .ant-input-affix-wrapper-focused{
+
+    border-color:var(--primary)!important;
+
+    box-shadow:
+        0 0 0 4px rgba(139,92,246,.10)!important;
+
+}
+
+/* ===================================================== */
+
+.search-bar .ant-input-clear-icon{
+
+    color:var(--text-secondary);
+
+}
+
+.search-bar .ant-input-clear-icon:hover{
+
+    color:var(--primary);
+
+}
+
+/* ===================================================== */
+
+.search-loading .ant-input-affix-wrapper{
+
+    opacity:.75;
+
+}
+
+/* ===================================================== */
+
+@media(max-width:768px){
+
+.search-bar .ant-input-affix-wrapper{
+
+height:46px;
+
+}
+
+}

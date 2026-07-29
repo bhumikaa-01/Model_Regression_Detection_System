@@ -1,48 +1,54 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tag } from "antd";
+import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled, PauseCircleFilled } from "@ant-design/icons";
+
+import "./styles/StatusBadge.css";
 
 const STATUS_CONFIG = {
   completed: {
-    color: "success",
-    text: "Completed",
+    label: "Completed",
+    className: "status-success",
+    icon: <CheckCircleFilled />,
   },
+
   running: {
-    color: "processing",
-    text: "Running",
+    label: "Running",
+    className: "status-running",
+    icon: <ClockCircleFilled />,
   },
+
   queued: {
-    color: "default",
-    text: "Queued",
+    label: "Queued",
+    className: "status-queued",
+    icon: <PauseCircleFilled />,
   },
+
   failed: {
-    color: "error",
-    text: "Failed",
+    label: "Failed",
+    className: "status-danger",
+    icon: <CloseCircleFilled />,
   },
+
   cancelled: {
-    color: "warning",
-    text: "Cancelled",
+    label: "Cancelled",
+    className: "status-warning",
+    icon: <PauseCircleFilled />,
   },
 };
 
 const StatusBadge = ({ status }) => {
   const config =
     STATUS_CONFIG[status?.toLowerCase()] || {
-      color: "default",
-      text: status || "Unknown",
+      label: status || "Unknown",
+      className: "status-default",
+      icon: null,
     };
 
   return (
-    <Tag
-      color={config.color}
-      style={{
-        borderRadius: 16,
-        padding: "2px 12px",
-        fontWeight: 600,
-      }}
-    >
-      {config.text}
-    </Tag>
+    <div className={`status-badge ${config.className}`}>
+      {config.icon}
+      <span>{config.label}</span>
+    </div>
   );
 };
 

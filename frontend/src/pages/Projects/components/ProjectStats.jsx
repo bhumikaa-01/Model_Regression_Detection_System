@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Card, Statistic, Progress } from "antd";
+import { Row, Col, Statistic, Progress } from "antd";
 
 import {
   FolderOpenOutlined,
@@ -7,6 +7,8 @@ import {
   RiseOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
+
+import Card from "../../../components/ui/Card";
 
 import "../styles/ProjectStats.css";
 
@@ -42,27 +44,27 @@ const ProjectStats = ({ projects }) => {
       title: "Total Projects",
       value: totalProjects,
       icon: <FolderOpenOutlined />,
-      color: "#1677ff",
+      colorClass: "primary",
     },
     {
       title: "Active Projects",
       value: activeProjects,
       icon: <CheckCircleOutlined />,
-      color: "#52c41a",
+      colorClass: "success",
     },
     {
       title: "Average Accuracy",
       value: Number(averageAccuracy),
       suffix: "%",
       icon: <RiseOutlined />,
-      color: "#722ed1",
+      colorClass: "purple",
     },
     {
       title: "Overall Health",
       value: Number(averageHealth),
       suffix: "%",
       icon: <HeartOutlined />,
-      color: "#eb2f96",
+      colorClass: "danger",
       progress: true,
     },
   ];
@@ -76,21 +78,15 @@ const ProjectStats = ({ projects }) => {
         <Col
           xs={24}
           sm={12}
-          lg={12}
           xl={6}
           key={item.title}
         >
-          <Card
-            hoverable
-            className="project-stat-card"
-            bodyStyle={{ padding: 24 }}
-          >
+          <Card className="project-stat-card">
+
             <div className="project-stat-header">
+
               <div
-                className="project-stat-icon"
-                style={{
-                  background: item.color,
-                }}
+                className={`project-stat-icon ${item.colorClass}`}
               >
                 {item.icon}
               </div>
@@ -100,19 +96,26 @@ const ProjectStats = ({ projects }) => {
                 value={item.value}
                 suffix={item.suffix}
                 precision={
-                  item.suffix === "%" ? 1 : 0
+                  item.suffix === "%"
+                    ? 1
+                    : 0
                 }
               />
+
             </div>
 
             {item.progress && (
               <Progress
                 percent={Number(item.value)}
                 showInfo={false}
-                strokeColor={item.color}
-                style={{ marginTop: 24 }}
+                strokeColor={{
+                  "0%": "#8B5CF6",
+                  "100%": "#22C55E",
+                }}
+                className="project-health-progress"
               />
             )}
+
           </Card>
         </Col>
       ))}

@@ -10,6 +10,8 @@ import {
 
 import MetricCard from "../../../components/common/MetricCard";
 
+import "../styles/EvaluationStats.css";
+
 const EvaluationStats = ({
   totalEvaluations,
   averageAccuracy,
@@ -18,51 +20,53 @@ const EvaluationStats = ({
   loading,
 }) => {
   return (
-    <Row gutter={[16, 16]}>
-      <Col xs={24} sm={12} xl={6}>
-        <MetricCard
-          title="Total Evaluations"
-          value={totalEvaluations}
-          subtitle="Across all models"
-          icon={<DatabaseOutlined />}
-          loading={loading}
-        />
-      </Col>
+    <div className="evaluation-stats">
+      <Row gutter={[20, 20]}>
+        <Col xs={24} sm={12} xl={6}>
+          <MetricCard
+            title="Total Evaluations"
+            value={totalEvaluations}
+            subtitle="Across all models"
+            icon={<DatabaseOutlined />}
+            loading={loading}
+          />
+        </Col>
 
-      <Col xs={24} sm={12} xl={6}>
-        <MetricCard
-          title="Average Accuracy"
-          value={`${averageAccuracy}%`}
-          subtitle="Overall model quality"
-          icon={<CheckCircleOutlined />}
-          trend="+1.8%"
-          trendType="positive"
-          loading={loading}
-        />
-      </Col>
+        <Col xs={24} sm={12} xl={6}>
+          <MetricCard
+            title="Average Accuracy"
+            value={`${averageAccuracy}%`}
+            subtitle="Overall model quality"
+            icon={<CheckCircleOutlined />}
+            trend="+1.8%"
+            trendType="positive"
+            loading={loading}
+          />
+        </Col>
 
-      <Col xs={24} sm={12} xl={6}>
-        <MetricCard
-          title="Total Regressions"
-          value={totalRegressions}
-          subtitle="Detected issues"
-          icon={<BugOutlined />}
-          trend="-2"
-          trendType="positive"
-          loading={loading}
-        />
-      </Col>
+        <Col xs={24} sm={12} xl={6}>
+          <MetricCard
+            title="Total Regressions"
+            value={totalRegressions}
+            subtitle="Detected issues"
+            icon={<BugOutlined />}
+            trend="-2"
+            trendType="positive"
+            loading={loading}
+          />
+        </Col>
 
-      <Col xs={24} sm={12} xl={6}>
-        <MetricCard
-          title="Avg Execution Time"
-          value={`${averageExecutionTime} ms`}
-          subtitle="Per evaluation"
-          icon={<ClockCircleOutlined />}
-          loading={loading}
-        />
-      </Col>
-    </Row>
+        <Col xs={24} sm={12} xl={6}>
+          <MetricCard
+            title="Avg Execution Time"
+            value={`${averageExecutionTime} ms`}
+            subtitle="Per evaluation"
+            icon={<ClockCircleOutlined />}
+            loading={loading}
+          />
+        </Col>
+      </Row>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Typography, Tooltip } from "antd";
+
 import "./styles/InfoItem.css";
 
 const { Text } = Typography;
@@ -15,9 +16,9 @@ const InfoItem = ({
   vertical,
   className,
 }) => {
-  const valueContent = (
+  const valueNode = (
     <Text
-      strong
+      className="info-item-value"
       copyable={copyable}
       ellipsis={
         ellipsis
@@ -26,7 +27,6 @@ const InfoItem = ({
             }
           : false
       }
-      className="info-item-value"
     >
       {value}
     </Text>
@@ -34,23 +34,34 @@ const InfoItem = ({
 
   return (
     <Flex
+      vertical={vertical}
       align={vertical ? "flex-start" : "center"}
       gap={12}
-      vertical={vertical}
       className={`info-item ${className}`}
     >
-      {icon && <div className="info-item-icon">{icon}</div>}
+      {icon && (
+        <div className="info-item-icon">
+          {icon}
+        </div>
+      )}
 
-      <Flex vertical className="info-item-content">
+      <Flex
+        vertical
+        className="info-item-content"
+      >
         {tooltip ? (
           <Tooltip title={tooltip}>
-            <Text className="info-item-label">{label}</Text>
+            <Text className="info-item-label">
+              {label}
+            </Text>
           </Tooltip>
         ) : (
-          <Text className="info-item-label">{label}</Text>
+          <Text className="info-item-label">
+            {label}
+          </Text>
         )}
 
-        {valueContent}
+        {valueNode}
       </Flex>
     </Flex>
   );

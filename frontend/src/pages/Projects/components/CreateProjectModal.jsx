@@ -7,30 +7,24 @@ import {
   message,
 } from "antd";
 
+import {
+  AppstoreAddOutlined,
+  RobotOutlined,
+  TagsOutlined,
+  FileTextOutlined,
+  DeploymentUnitOutlined,
+} from "@ant-design/icons";
+
+import Button from "../../../components/ui/Button";
+
 const { TextArea } = Input;
 
 const MODEL_OPTIONS = {
-  Google: [
-    "Gemini 2.5 Flash",
-    "Gemini 2.5 Pro",
-  ],
-  OpenAI: [
-    "GPT-4.1",
-    "GPT-4o",
-    "o4-mini",
-  ],
-  Anthropic: [
-    "Claude Sonnet 4",
-    "Claude Opus 4",
-  ],
-  Azure: [
-    "GPT-4.1",
-    "GPT-4o",
-  ],
-  Meta: [
-    "Llama 4 Scout",
-    "Llama 4 Maverick",
-  ],
+  Google: ["Gemini 2.5 Flash", "Gemini 2.5 Pro"],
+  OpenAI: ["GPT-4.1", "GPT-4o", "o4-mini"],
+  Anthropic: ["Claude Sonnet 4", "Claude Opus 4"],
+  Azure: ["GPT-4.1", "GPT-4o"],
+  Meta: ["Llama 4 Scout", "Llama 4 Maverick"],
 };
 
 const PROJECT_TYPES = [
@@ -49,10 +43,7 @@ const CreateProjectModal = ({
 }) => {
   const [form] = Form.useForm();
 
-  const provider = Form.useWatch(
-    "provider",
-    form
-  );
+  const provider = Form.useWatch("provider", form);
 
   const modelOptions = useMemo(() => {
     if (!provider) return [];
@@ -83,44 +74,27 @@ const CreateProjectModal = ({
 
   const handleSubmit = async () => {
     try {
-      const values =
-        await form.validateFields();
+      const values = await form.validateFields();
 
       const newProject = {
         id: Date.now(),
-
         name: values.projectName,
-
         description:
-          values.description ||
-          "No description provided.",
-
+          values.description || "No description provided.",
         provider: values.provider,
-
         model: values.model,
-
-        projectType:
-          values.projectType,
-
+        projectType: values.projectType,
         tags: values.tags || [],
-
         status: "Active",
-
         healthScore: 100,
-
         averageAccuracy: 100,
-
         evaluations: 0,
-
-        createdAt:
-          new Date().toISOString(),
+        createdAt: new Date().toISOString(),
       };
 
       onCreate(newProject);
 
-      message.success(
-        "Project created successfully!"
-      );
+      message.success("Project created successfully!");
 
       form.resetFields();
     } catch {
@@ -131,18 +105,23 @@ const CreateProjectModal = ({
   return (
     <Modal
       open={open}
-      title="Create New Project"
       centered
       width={720}
-      okText="Create Project"
-      cancelText="Cancel"
-      onCancel={onCancel}
-      onOk={handleSubmit}
       destroyOnClose
+      onCancel={onCancel}
+      footer={null}
+      className="create-project-modal"
+      title={
+        <div className="modal-title">
+          <AppstoreAddOutlined />
+          <span>Create New Project</span>
+        </div>
+      }
     >
       <Form
-        layout="vertical"
         form={form}
+        layout="vertical"
+        className="create-project-form"
       >
         <Form.Item
           label="Project Name"
@@ -150,13 +129,13 @@ const CreateProjectModal = ({
           rules={[
             {
               required: true,
-              message:
-                "Please enter a project name.",
+              message: "Please enter a project name.",
             },
           ]}
         >
           <Input
             size="large"
+            prefix={<FileTextOutlined />}
             placeholder="Customer Support Evaluation"
           />
         </Form.Item>
@@ -167,42 +146,24 @@ const CreateProjectModal = ({
         >
           <TextArea
             rows={4}
-            placeholder="Briefly describe the purpose of this project..."
+            placeholder="Describe the purpose and objectives of this project..."
           />
         </Form.Item>
 
         <Form.Item
           label="AI Provider"
           name="provider"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
         >
           <Select
             size="large"
+            suffixIcon={<RobotOutlined />}
             options={[
-              {
-                value: "Google",
-                label: "Google",
-              },
-              {
-                value: "OpenAI",
-                label: "OpenAI",
-              },
-              {
-                value: "Anthropic",
-                label: "Anthropic",
-              },
-              {
-                value: "Azure",
-                label: "Azure",
-              },
-              {
-                value: "Meta",
-                label: "Meta",
-              },
+              { value: "Google", label: "Google" },
+              { value: "OpenAI", label: "OpenAI" },
+              { value: "Anthropic", label: "Anthropic" },
+              { value: "Azure", label: "Azure" },
+              { value: "Meta", label: "Meta" },
             ]}
           />
         </Form.Item>
@@ -210,20 +171,15 @@ const CreateProjectModal = ({
         <Form.Item
           label="Model"
           name="model"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
         >
           <Select
             size="large"
-            options={modelOptions.map(
-              (model) => ({
-                value: model,
-                label: model,
-              })
-            )}
+            suffixIcon={<DeploymentUnitOutlined />}
+            options={modelOptions.map((model) => ({
+              value: model,
+              label: model,
+            }))}
           />
         </Form.Item>
 
@@ -233,12 +189,10 @@ const CreateProjectModal = ({
         >
           <Select
             size="large"
-            options={PROJECT_TYPES.map(
-              (type) => ({
-                value: type,
-                label: type,
-              })
-            )}
+            options={PROJECT_TYPES.map((type) => ({
+              value: type,
+              label: type,
+            }))}
           />
         </Form.Item>
 
@@ -249,9 +203,29 @@ const CreateProjectModal = ({
           <Select
             mode="tags"
             size="large"
-            placeholder="Add tags"
+            suffixIcon={<TagsOutlined />}
+            placeholder="evaluation, production, finance..."
           />
         </Form.Item>
+
+        <div className="modal-actions">
+
+          <Button
+            variant="ghost"
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            leftIcon={<AppstoreAddOutlined />}
+            onClick={handleSubmit}
+          >
+            Create Project
+          </Button>
+
+        </div>
+
       </Form>
     </Modal>
   );
